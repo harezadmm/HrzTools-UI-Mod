@@ -38,7 +38,7 @@ Folder [`source/`](source/) berisi source perubahan yang diperlukan untuk memaha
 | [`source/native/`](source/native/) | Native hook C, `LocalCodec.java`, Smali codec, dan launcher script |
 | [`source/ui-skin/`](source/ui-skin/) | CSS/JS/inject/build script untuk UI skin |
 | [`source/tools/`](source/tools/) | Helper codec dan pipeline yang dipakai selama rebuild |
-| [`source/patches/`](source/patches/) | Patch UI TOOLS |
+| [`patches/`](patches/) | Patch UI TOOLS |
 | [`source/docs/`](source/docs/) | Rencana rebuild, findings, dan catatan teknis |
 
 `source/MODIFIED_FILES.txt` adalah daftar file yang dipublikasikan dalam bundle source ini.
