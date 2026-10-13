@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Generic modal → bottom sheet / full page / dialog
+   ========================================================================== */
+html body .r-ov {
+  background: rgba(7, 9, 17, .78) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  align-items: flex-end !important; justify-content: center !important; padding: 0 !important;
+}
+html body .r-ov.r-ov-page { background: var(--r-bg) !important; align-items: stretch !important; }
+html body .r-ov.r-ov-dialog { align-items: center !important; padding: 0 16px !important; background: rgba(7, 9, 17, .92) !important; }
+
+html body .r-ov > .r-sheet {
+  position: relative !important; width: 100% !important; max-width: none !important; min-width: 0 !important;
+  height: auto !important; min-height: 0 !important; max-height: calc(100% - var(--sa-top, 24px) - 10px) !important;
+  margin: 0 !important; padding: 10px 16px calc(16px + var(--sa-bottom, 0px)) !important; box-sizing: border-box !important;
+  display: flex !important; flex-direction: column !important; overflow-y: auto !important; overflow-x: hidden !important;
+  background: var(--r-s1) !important; background-image: none !important;
+  border: 1px solid var(--r-line2) !important; border-bottom: 0 !important; border-radius: 22px 22px 0 0 !important;
+  box-shadow: 0 -20px 60px rgba(0, 0, 0, .45) !important; transform: none !important; animation: none !important;
+  font-family: var(--r-sans) !important; color: var(--r-t2) !important; text-align: left !important;
+}
+html body .r-ov > .r-sheet::before, html body .r-ov > .r-sheet::after { display: none !important; }
+html body .r-ov > .r-sheet.r-page {
+  max-height: none !important; height: 100% !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+  background: var(--r-bg) !important; padding: var(--r-top) 16px calc(16px + var(--sa-bottom, 0px)) !important;
+}
+html body .r-ov > .r-sheet.r-dialog {
+  max-height: calc(100% - 40px) !important; border: 1px solid var(--r-line2) !important; border-radius: 20px !important;
+  padding: 22px 20px !important; background: var(--r-s1) !important;
+}
+html body .r-ov > .r-sheet > .r-ohdr { display: none !important; }
+html body .r-ov > .r-sheet > .r-shead { flex: none; }
+html body .r-ov > .r-sheet .r-sh-head { margin-bottom: 14px; }
+html body .r-phead { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
+html body .r-phead .r-sh-tt { flex: 1 1 auto; min-width: 0; }
+html body .r-phead .r-st { font: 600 17px/1.25 var(--r-display); color: var(--r-t1); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body .r-phead .r-ss { font: 400 12px/1.3 var(--r-sans); color: var(--r-t4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body .r-shead-extra { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: -4px 0 12px; }
+html body .r-shead-extra:empty { display: none; }
+
+/* body containers inside sheets lose their own card chrome & fixed heights */
+html body .r-sheet [class$="-body"], html body .r-sheet [class*="-body "], html body .r-sheet .ed-body {
+  padding: 0 !important; margin: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important;
+  max-height: none !important; height: auto !important; overflow: visible !important;
+}
+html body .r-sheet .r-sfoot, html body .r-sheet [class$="-footer"], html body .r-sheet [class$="-foot"], html body .r-sheet .ed-footer {
+  position: sticky !important; bottom: calc(-16px - var(--sa-bottom, 0px)) !important; z-index: 3;
+  display: flex !important; gap: 10px !important; margin: 14px -16px calc(-16px - var(--sa-bottom, 0px)) !important;
+  padding: 14px 16px calc(16px + var(--sa-bottom, 0px)) !important; background: var(--r-s1) !important;
+  border: 0 !important; border-top: 1px solid var(--r-line) !important; box-shadow: none !important; border-radius: 0 !important;
+}
+html body .r-sheet.r-page .r-sfoot, html body .r-sheet.r-page [class$="-footer"], html body .r-sheet.r-page [class$="-foot"], html body .r-sheet.r-page .ed-footer { background: var(--r-bg) !important; }
+
+/* section titles */
+html body .r-sheet .ed-section { padding: 0 !important; margin: 0 0 14px !important; background: none !important; border: 0 !important; box-shadow: none !important; }
+html body .r-sheet .ed-section-title, html body .r-sheet [class$="-section-title"], html body .r-sheet [class$="-sec-title"] {
+  display: flex !important; align-items: center !important; gap: 8px !important; margin: 0 0 10px !important; padding: 0 !important;
+  font: 600 11px/1.2 var(--r-sans) !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--r-t4) !important;
+  background: none !important; border: 0 !important;
+}
+html body .r-sheet .ed-section-title > svg, html body .r-sheet [class$="-section-title"] > svg { display: none !important; }
+html body .r-sheet .ed-section-title::before, html body .r-sheet [class$="-section-title"]::before, html body .r-sheet [class$="-sec-title"]::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--sheet-dot, var(--r-ac)); flex: none;
+}
+html body .r-sheet .ed-paste-hint, html body .r-sheet [class$="-hint"], html body .r-sheet [class$="-desc"]:not(.step-desc) {
+  font: 400 12.5px/1.45 var(--r-sans) !important; color: var(--r-t3) !important;
+}
+
+/* buttons */
+html body .r-sheet button:not(.r-sh-x):not(.r-iconbtn):not(.r-chip):not(.r-btn):not(.r-step):not(.r-raw) {
+  font-family: var(--r-display) !important; letter-spacing: 0 !important; text-transform: none !important;
+  box-shadow: none !important; background-image: none !important; transform: none !important; filter: none !important;
+}
+html body .r-sheet .ed-btn, html body .r-sheet [class*="-btn"]:not(.r-btn):not(.r-iconbtn):not([class*="-btns"]):not(.r-raw) {
+  min-height: 0 !important; height: 44px !important; border-radius: 12px !important; padding: 0 14px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important;
+  background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important;
+  font: 600 14px/1 var(--r-display) !important; opacity: 1;
+}
+html body .r-sheet .ed-btn svg, html body .r-sheet [class*="-btn"]:not(.r-btn) > svg { width: 16px !important; height: 16px !important; flex: none; }
+html body .r-sheet .ed-btn:disabled, html body .r-sheet [class*="-btn"]:disabled { opacity: .45 !important; }
+html body .r-sheet .r-pri, html body .r-sheet .r-pri:not(.r-btn) {
+  background: var(--r-ac) !important; border-color: var(--r-ac) !important; color: #0b1020 !important;
+}
+
+/* inputs */
+html body .r-sheet input[type="text"], html body .r-sheet input[type="number"], html body .r-sheet input[type="search"],
+html body .r-sheet input:not([type]), html body .r-sheet input[type="date"], html body .r-sheet input[type="time"], html body .r-sheet select {
+  height: 44px !important; min-height: 0 !important; box-sizing: border-box !important; border-radius: 10px !important;
+  background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important;
+  font: 400 14px/1 var(--r-mono) !important; padding: 0 12px !important; box-shadow: none !important; outline: 0 !important;
+  color-scheme: dark;
+}
+html body .r-sheet textarea {
+  background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important; border-radius: 10px !important;
+  font: 400 12.5px/1.6 var(--r-mono) !important; box-shadow: none !important; outline: 0 !important;
+}
+html body .r-sheet input::placeholder, html body .r-sheet textarea::placeholder { color: var(--r-t4) !important; }
+html body .r-sheet input:focus, html body .r-sheet textarea:focus { border-color: var(--r-ac) !important; }
+
+/* switches (.up-switch / generic) */
+html body .r-sheet .up-switch, html body .r-ov .up-switch {
+  position: relative !important; display: inline-block !important; width: 44px !important; height: 24px !important; flex: none !important; margin: 0 !important;
+}
+html body .r-sheet .up-switch input, html body .r-ov .up-switch input { opacity: 0 !important; width: 0 !important; height: 0 !important; position: absolute !important; }
+html body .r-sheet .up-slider, html body .r-ov .up-slider {
+  position: absolute !important; inset: 0 !important; border-radius: 12px !important; cursor: pointer;
+  background: #1d2b46 !important; border: 0 !important; box-shadow: none !important; transition: background .2s !important;
+}
+html body .r-sheet .up-slider::before, html body .r-ov .up-slider::before {
+  content: "" !important; position: absolute !important; left: 4px !important; top: 4px !important; bottom: auto !important;
+  width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #59677e !important; box-shadow: none !important;
+  transition: transform .2s !important; transform: none !important;
+}
+html body .r-sheet .up-switch input:checked + .up-slider, html body .r-ov .up-switch input:checked + .up-slider { background: var(--r-ac) !important; }
+html body .r-sheet .up-switch input:checked + .up-slider::before, html body .r-ov .up-switch input:checked + .up-slider::before {
+  transform: translateX(20px) !important; background: #0b1020 !important;
+}
+
+/* status lines */
+html body .r-sheet .ed-status, html body .r-sheet [class$="-status"] {
+  font: 400 12px/1.4 var(--r-mono) !important; color: var(--r-t3) !important;
+}
+html body .r-sheet .ed-status:not(:empty), html body .r-sheet [class$="-status"]:not(:empty) {
+  margin-top: 10px !important; padding: 9px 12px !important; border-radius: 10px !important;
+  background: #0f1f22 !important; border: 1px solid #17362f !important; color: var(--r-green) !important;
+}
+html body .r-sheet .ed-status.err:not(:empty), html body .r-sheet .ed-status.error:not(:empty), html body .r-sheet [class$="-status"].err:not(:empty) {
+  background: #2a1822 !important; border-color: #4a2333 !important; color: var(--r-rose) !important;
+}
+/* the sheet scrolls as a whole: children never shrink */
+html body .r-ov > .r-sheet > * { flex-shrink: 0 !important; }
+html body .r-sheet .mdl-hdr-actions { display: none !important; }

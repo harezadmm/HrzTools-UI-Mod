@@ -1,82 +1,92 @@
-# HrzTools — UI Overhaul (Feature Button Grid)
+# HrzTools — UI Overhaul + Local Township Codec
 
-Modifikasi tampilan (UI/UX) untuk aplikasi **HrzTools** (`com.twntool.editor`) — merombak layout tombol fitur di tab **TOOLS** agar lebih rapi, ringkas, dan enak dilihat. Patch dilakukan pada level **Smali bytecode** (APK patching), tanpa source Kotlin asli.
+APK modifikasi HrzTools untuk Android dengan UI TOOLS yang dirapikan dan pipeline Township yang berjalan lokal di APK. Build terbaru yang dipublikasikan adalah **v15 ARM64**, sudah aligned, signed, dan diuji pada emulator Android.
 
-> ⚠️ **Disclaimer.** Repo ini untuk keperluan belajar & penggunaan pribadi (personal reverse-engineering / UI tinkering). Tidak mendistribusikan kode sumber pihak ketiga — hanya berisi *diff* perubahan yang dibuat sendiri, dokumentasi, screenshot, dan artefak build. Gunakan dengan tanggung jawab sendiri.
+> Repo ini hanya memuat source perubahan/integrasi yang dibuat untuk project, dokumentasi, dan artefak APK release. Decompile penuh aplikasi pihak ketiga, engine game, APK split besar, keystore, serta credential tidak dipublikasikan.
 
----
+## Release terbaru
 
-## ✨ Ringkasan Perubahan
+- **Version:** `v15.0.0`
+- **APK:** [`build/HrzTools_UI-Overhaul.apk`](build/HrzTools_UI-Overhaul.apk)
+- **Release page:** [GitHub Releases](../../releases/latest)
+- **SHA-256:** `6fbef237907e4e6ea440a8330d461dfaabc86a4ba33526681d2c531394b67dcd`
+- **Ukuran:** 69,036,875 bytes
+- **ABI:** ARM64 (`arm64-v8a`)
 
-Dua perbaikan pada layar **TOOLS** (`ToolsScreenKt` / composable `ToolCardCompact`):
+## Perubahan v15
 
-### 1. Polish visual kartu
-| Properti | Sebelum | Sesudah |
-| :--- | :---: | :---: |
-| Tinggi kartu (fixed) | `108dp` | **`94dp`** — lebih ramping, tak boros ruang |
-| Radius sudut kartu | `12dp` | **`16dp`** — lebih modern / soft |
-| Jarak antar-baris grid | `8dp` | **`10dp`** — lebih lega |
+### Local Township codec
 
-Hasil: grid muat **~1 baris lebih banyak** per layar tanpa terasa sesak.
+- Decode dan encode save Township dipindahkan ke runtime lokal.
+- Root reader memakai `/proc/1/root` agar namespace shell yang dijalankan dari aplikasi dapat membaca save game yang benar.
+- Integrasi bridge, `LocalCodec`, dan native hook ARM64 dibundel ke APK.
+- Jalur save yang digunakan: `/data/data/com.playrix.township/saves/mGameInfo.xml`.
 
-### 2. Penataan ulang urutan tombol (grup by fungsi)
-Sebelumnya urutan mengikuti default game (acak secara logika). Sekarang dikelompokkan:
+### UI TOOLS
 
-| Grup | Tombol |
-| :--- | :--- |
-| 💰 **Ekonomi** | Barn · Market · Quantities · Golden Pass |
-| 🔓 **Unlock** | Achievements · Zoo Cards · Skins · Stickers · Advantages · Profile |
-| 👤 **Akun** | Clone Decoration · Desban · Industry Academy · Trains |
-| 🛠️ **Utilitas** | Encode/Decode · Global Search · Favorite Tools · Quick Presets · Edit History |
+- Kartu fitur dibuat lebih ringkas: tinggi `94dp`, radius `16dp`, dan jarak grid `10dp`.
+- Tombol dikelompokkan berdasarkan fungsi: ekonomi, unlock, akun, dan utilitas.
+- Layout tetap menggunakan patch Smali pada `ToolsScreenKt`.
 
----
+## Source code terkait APK terbaru
 
-## 📸 Before / After
+Folder [`source/`](source/) berisi source perubahan yang diperlukan untuk memahami dan mengulang integrasi v15:
 
-| Sebelum | Sesudah (atas) | Sesudah (bawah) |
-| :---: | :---: | :---: |
-| ![before](screenshots/01_tools_before.png) | ![after top](screenshots/02_tools_after_top.png) | ![after bottom](screenshots/03_tools_after_bottom.png) |
+| Folder | Isi |
+|---|---|
+| [`source/decomp-patches/`](source/decomp-patches/) | File Smali/resource yang berubah dari decompile dasar v15 |
+| [`source/native/`](source/native/) | Native hook C, `LocalCodec.java`, Smali codec, dan launcher script |
+| [`source/ui-skin/`](source/ui-skin/) | CSS/JS/inject/build script untuk UI skin |
+| [`source/tools/`](source/tools/) | Helper codec dan pipeline yang dipakai selama rebuild |
+| [`source/patches/`](source/patches/) | Patch UI TOOLS |
+| [`source/docs/`](source/docs/) | Rencana rebuild, findings, dan catatan teknis |
 
----
+`source/MODIFIED_FILES.txt` adalah daftar file yang dipublikasikan dalam bundle source ini.
 
-## 🔧 Detail Teknis
+## Build overview
 
-Semua perubahan ada di satu file:
-`smali_classes3/com/twntool/editor/ui/screens/ToolsScreenKt.smali`
+Build v15 membutuhkan toolchain Android lokal yang tidak disimpan di repository:
 
-**Temuan kunci:** posisi tombol di grid ditentukan oleh **indeks array** pada instruksi
-`aput-object vItem, v3, vIndex` — *bukan* urutan fisik blok kode. Jadi penataan ulang
-cukup dengan mengubah konstanta indeks (`const/4` / `const/16`) sebelum tiap `aput-object`,
-tanpa memindahkan blok apa pun. (Perhatikan: `const/4` maksimum `0x7`; indeks ≥ 8 pakai `const/16`.)
+1. Siapkan decompile dasar APK pada folder kerja lokal.
+2. Terapkan file di `source/decomp-patches/` ke path decompile yang sesuai.
+3. Build native `source/native/twnhook.c` dan `source/native/twninject.c` untuk `arm64-v8a`.
+4. Compile/inject `LocalCodec` dan resource UI.
+5. Build dengan apktool.
+6. Zipalign dan sign memakai keystore milik operator secara lokal.
+7. Install ke device/emulator ARM64.
 
-Patch lengkap: [`patches/ToolsScreen_ui_overhaul.diff`](patches/ToolsScreen_ui_overhaul.diff) (17 baris perubahan).
-
----
-
-## 🏗️ Build & Install
-
-Prasyarat: `apktool`, `uber-apk-signer`, `adb`, dan folder hasil decompile APK.
+Contoh perintah umum:
 
 ```bash
-# 1. Terapkan patch ke folder decompile
-patch -p1 -d bongkar/apktool_v13/smali_classes3/com/twntool/editor/ui/screens \
-      < patches/ToolsScreen_ui_overhaul.diff
-
-# 2. Rebuild APK
-java -jar tools/apktool.jar b bongkar/apktool_v13 -o HrzTools_UI-Overhaul.apk
-
-# 3. Zipalign + sign (debug key)
-java -jar tools/uber-apk-signer.jar --apks HrzTools_UI-Overhaul.apk
-
-# 4. Install ke device/emulator
-adb install -r HrzTools_UI-Overhaul-aligned-debugSigned.apk
+java -jar apktool.jar b decompile-dir -o build/hrztools-v15-unsigned.apk
+java -jar uber-apk-signer.jar -a build/hrztools-v15-unsigned.apk
+adb install -r build/hrztools-v15-aligned-signed.apk
 ```
 
-APK siap-pakai tersedia di **[Releases](../../releases)** dan di folder [`build/`](build/).
+Keystore, password signing, APK input asli, game engine `libgame.so`, dan binary toolchain harus disediakan di lingkungan build lokal; semuanya sengaja tidak di-commit.
 
----
+## Verifikasi v15
 
-## ✅ Status
+Smoke test yang berhasil:
 
-Sudah di-build, di-sign, dan **dites langsung di emulator Android** — grid TOOLS ter-render
-penuh (19 kartu) dengan urutan & tampilan baru, tanpa crash/regresi.
+```text
+Checking root and reading the save...
+Connected! Save downloaded and decoded.
+```
+
+Artefak hasil:
+
+```text
+/data/data/com.hrztool.android/files/twn_codec_input.bin   300008 bytes
+/data/data/com.hrztool.android/files/twn_codec_output.xml  769617 bytes
+```
+
+Output XML diawali dengan:
+
+```xml
+<root><Zoo><TownGround ver="2">
+```
+
+## Riwayat UI sebelumnya
+
+Perubahan UI TOOLS terdahulu tetap terdokumentasi pada [`patches/ToolsScreen_ui_overhaul.diff`](patches/ToolsScreen_ui_overhaul.diff) dan screenshot pada [`screenshots/`](screenshots/).

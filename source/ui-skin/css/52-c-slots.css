@@ -1,0 +1,82 @@
+/* C5 · Boxes & Slots / factory slots / academy rows */
+html body #caixas-modal-overlay { --sheet-dot: var(--r-cyan); }
+html body .r-sheet .acad2-body { display: block !important; }
+html body .r-sheet .acad2-body > div:first-child:not(.acad2-grid) { display: flex !important; flex-wrap: wrap; gap: 8px !important; margin: 0 0 12px !important; }
+html body .r-sheet .acad2-body > div:first-child:not(.acad2-grid) > span { font: 400 12.5px/1.45 var(--r-sans) !important; color: var(--r-t3) !important; }
+html body .r-sheet .acad2-grid { display: flex !important; flex-direction: column !important; gap: 8px !important; grid-template-columns: none !important; }
+html body .r-sheet .acad2-row {
+  display: flex !important; align-items: center !important; gap: 12px !important; min-height: 60px; box-sizing: border-box;
+  padding: 10px !important; margin: 0 !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important;
+}
+html body .r-sheet .acad2-row.off { opacity: .5; }
+html body .r-sheet .acad2-ico {
+  width: 40px !important; height: 40px !important; border-radius: 10px !important; flex: none !important; overflow: hidden;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important; background: #1b2c45 !important; border: 0 !important;
+}
+html body .r-sheet .acad2-ico img { width: 30px !important; height: 30px !important; object-fit: contain !important; }
+html body .r-sheet .acad2-ico-fallback { font: 600 10px/1 var(--r-mono) !important; color: var(--r-cyan) !important; }
+html body .r-sheet .acad2-row .r-bi-txt { flex: 1 1 auto; min-width: 0; }
+html body .r-sheet .acad2-label { font: 600 14px/1.25 var(--r-display) !important; color: var(--r-t1) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body .r-sheet .acad2-row .r-bi-sub { font: 400 11px/1.3 var(--r-mono); color: var(--r-t4); margin-top: 2px; }
+html body .r-sheet .acad2-fields { display: flex !important; align-items: center !important; gap: 8px !important; flex: none !important; }
+html body .r-sheet .acad2-field { display: flex !important; align-items: center !important; gap: 0 !important; }
+html body .r-sheet .acad2-field + .acad2-field, html body .r-sheet .acad2-field-lbl { display: none !important; }
+html body .r-sheet .acad2-loading { font: 400 12px/1.4 var(--r-sans) !important; color: var(--r-t4) !important; display: flex; align-items: center; gap: 6px; padding: 12px 0; }
+
+/* market presets */
+html body #mkt-modal-overlay .mkt-presets { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; margin: 0 0 16px !important; }
+html body #mkt-modal-overlay .mkt-preset-btn {
+  height: 56px !important; flex-direction: column !important; gap: 4px !important; border-radius: 12px !important;
+}
+html body #mkt-modal-overlay .mkt-preset-btn.active, html body #mkt-modal-overlay .mkt-preset-btn.selected { background: #222749 !important; border-color: var(--r-ac-b) !important; }
+html body #mkt-modal-overlay .mkt-preset-val { font: 600 16px/1 var(--r-mono) !important; color: var(--r-t1) !important; }
+html body #mkt-modal-overlay .mkt-preset-lbl { font: 400 11px/1 var(--r-sans) !important; color: var(--r-t4) !important; }
+html body #mkt-modal-overlay .mkt-divider { display: flex; align-items: center; gap: 8px; margin: 0 0 10px !important; font: 600 11px/1.2 var(--r-sans) !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--r-t4) !important; }
+html body #mkt-modal-overlay .mkt-divider::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--r-cyan); }
+html body #mkt-modal-overlay .mkt-divider::after { display: none !important; }
+html body #mkt-modal-overlay .mkt-custom-input { width: 100% !important; }
+
+/* C6 · Quantities */
+html body #altqtd-modal-overlay .r-qtop { margin: 0 0 18px; }
+html body #altqtd-modal-overlay .r-qtop > .r-sec { margin: 0 0 12px !important; --dot: var(--r-pink); }
+html body #altqtd-modal-overlay .r-qtop > .r-labmodes { margin: 18px 0 10px !important; }
+html body .r-lab { font: 600 13px/1.2 var(--r-sans); color: var(--r-t2); margin: 0 0 8px; }
+html body #altqtd-modal-overlay .altqtd-bulk { display: flex !important; align-items: stretch !important; gap: 8px !important; margin: 0 !important; padding: 0 !important; background: none !important; border: 0 !important; }
+html body #altqtd-modal-overlay .altqtd-bulk-lbl { display: none !important; }
+html body #altqtd-modal-overlay .altqtd-bulk .r-inwrap { flex: 1 1 auto; }
+html body #altqtd-modal-overlay .altqtd-bulk button { height: 48px !important; flex: none; padding: 0 14px !important; }
+html body .r-qchips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 0; }
+html body .r-qchip {
+  height: 44px; border-radius: 10px; background: var(--r-s2); border: 1px solid #202e49; color: #aab5c9; font: 500 13px/1 var(--r-mono); cursor: pointer; padding: 0;
+}
+html body .r-qchip.on { background: #2e1f36; border-color: var(--r-pink); color: var(--r-pink); }
+html body #altqtd-modal-overlay .altqtd-mode {
+  display: flex !important; align-items: center !important; gap: 12px !important; width: 100%; box-sizing: border-box; margin: 0 !important;
+  padding: 10px 12px !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important; cursor: pointer;
+}
+html body #altqtd-modal-overlay .altqtd-mode > .r-tile { width: 32px; height: 32px; border-radius: 8px; }
+html body #altqtd-modal-overlay .altqtd-mode > .r-tile svg { width: 16px; height: 16px; }
+html body #altqtd-modal-overlay .r-mtxt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; order: 2; }
+html body #altqtd-modal-overlay .altqtd-mode-lbl { font: 600 14px/1.25 var(--r-display) !important; color: var(--r-t1) !important; letter-spacing: 0 !important; text-transform: none !important; }
+html body #altqtd-modal-overlay .r-mdesc { font: 400 11.5px/1.3 var(--r-sans); color: var(--r-t4); }
+html body #altqtd-modal-overlay .altqtd-mini-switch { order: 3; position: relative !important; width: 44px !important; height: 24px !important; flex: none !important; }
+html body #altqtd-modal-overlay .altqtd-mini-switch input { opacity: 0 !important; position: absolute !important; width: 0 !important; height: 0 !important; }
+html body #altqtd-modal-overlay .altqtd-mini-slider { position: absolute !important; inset: 0 !important; border-radius: 12px !important; background: #1d2b46 !important; border: 0 !important; }
+html body #altqtd-modal-overlay .altqtd-mini-slider::before { content: "" !important; position: absolute !important; left: 4px !important; top: 4px !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #59677e !important; transform: none !important; transition: transform .2s !important; }
+html body #altqtd-modal-overlay .altqtd-mini-switch input:checked + .altqtd-mini-slider { background: var(--r-pink) !important; }
+html body #altqtd-modal-overlay .altqtd-mini-switch input:checked + .altqtd-mini-slider::before { transform: translateX(20px) !important; background: #0b1020 !important; }
+html body #altqtd-modal-overlay #altqtd-gift-note { display: none; }
+html body #altqtd-modal-overlay #altqtd-gift-note[style*="flex"], html body #altqtd-modal-overlay #altqtd-gift-note[style*="block"] {
+  display: flex !important; gap: 8px; align-items: flex-start; margin: 0 0 14px !important; padding: 10px 12px !important; border-radius: 10px !important;
+  background: #2e1f36 !important; border: 1px solid #5a2f52 !important; color: #f3a6d6 !important; font: 400 12px/1.4 var(--r-sans) !important;
+}
+html body #altqtd-modal-overlay .altqtd-row {
+  display: flex !important; align-items: center !important; gap: 12px !important; min-height: 52px; box-sizing: border-box;
+  padding: 8px 10px !important; margin: 0 0 8px !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important;
+}
+html body #altqtd-modal-overlay .altqtd-ico { width: 36px !important; height: 36px !important; border-radius: 9px !important; flex: none !important; overflow: hidden; display: inline-flex !important; align-items: center; justify-content: center; }
+html body #altqtd-modal-overlay .altqtd-ico img { width: 28px !important; height: 28px !important; object-fit: contain !important; }
+html body #altqtd-modal-overlay .altqtd-label { flex: 1 1 auto; min-width: 0; font: 600 14px/1.25 var(--r-display) !important; color: var(--r-t1) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body #altqtd-modal-overlay .altqtd-input { width: 96px !important; height: 36px !important; flex: none; text-align: right !important; font-size: 13.5px !important; }
+html body .r-sheet .r-qchip { font: 500 13px/1 var(--r-mono) !important; }
+html body #altqtd-modal-overlay .altqtd-bulk button { background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important; font: 600 13.5px/1 var(--r-display) !important; border-radius: 10px !important; width: auto !important; }

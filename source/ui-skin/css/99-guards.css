@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Guards — whatever the skin says, the app's own "hidden" state always wins.
+   (inline display:none and the app's *-hidden-card / .hidden classes)
+   ========================================================================== */
+html body #app-root > .workspace[style*="display: none"]:not(#r-none):not(#r-none2),
+html body #app-root > .workspace[style*="display:none"]:not(#r-none):not(#r-none2) { display: none !important; }
+html body #app-root :is([style*="display: none"], [style*="display:none"]):not(#r-none):not(#r-none2):not(#r-none3) { display: none !important; }
+html body .r-ov :is([style*="display: none"], [style*="display:none"]):not(#r-none):not(#r-none2):not(#r-none3) { display: none !important; }
+html body #app-root .step-card:is(.px-hidden-card, .fi-hidden-card):not(#r-none):not(#r-none2):not(#r-none3) { display: none !important; }
+html body #app-root .hidden:not(.r-keep):not(#r-none):not(#r-none2):not(#r-none3),
+html body .r-ov .hidden:not(.r-keep):not(#r-none):not(#r-none2):not(#r-none3) { display: none !important; }
+html body .r-ov .is-hidden:not(#r-none):not(#r-none2):not(#r-none3) { display: none !important; }

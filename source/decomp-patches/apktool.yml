@@ -1,0 +1,35 @@
+version: 2.10.0
+apkFileName: hrztools-refskin-signed.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  tag: null
+sdkInfo:
+  minSdkVersion: 24
+  targetSdkVersion: 35
+packageInfo:
+  forcedPackageId: 127
+  renameManifestPackage: null
+versionInfo:
+  versionCode: 24
+  versionName: 1.75
+resourcesAreCompressed: false
+sharedLibrary: false
+sparseResources: false
+unknownFiles:
+  DebugProbesKt.bin: 8
+  build-data.properties: 8
+  kotlin-tooling-metadata.json: 8
+  okhttp3/internal/publicsuffix/NOTICE: 8
+  okhttp3/internal/publicsuffix/publicsuffixes.gz: 8
+  org/bouncycastle/pqc/crypto/picnic/lowmcL1.bin.properties: 8
+  org/bouncycastle/pqc/crypto/picnic/lowmcL3.bin.properties: 8
+  org/bouncycastle/pqc/crypto/picnic/lowmcL5.bin.properties: 8
+  org/bouncycastle/x509/CertPathReviewerMessages.properties: 8
+  org/bouncycastle/x509/CertPathReviewerMessages_de.properties: 8
+doNotCompress:
+- resources.arsc
+- png
+- assets/dexopt/baseline.prof
+- assets/dexopt/baseline.profm

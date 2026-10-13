@@ -1,0 +1,28 @@
+/* B5 · Data Mode */
+html body #data-mode-overlay .r-code { border: 1px solid var(--r-line2); border-radius: 14px; background: var(--r-s1); overflow: hidden; margin: 0 0 12px; }
+html body #data-mode-overlay .r-code-h { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--r-line); }
+html body #data-mode-overlay .r-code-h .r-ico { width: 16px; height: 16px; color: var(--r-t3); }
+html body #data-mode-overlay .r-code-n { font: 500 12.5px/1 var(--r-mono); color: var(--r-t2); }
+html body #data-mode-overlay .r-code-c { margin-left: auto; font: 400 11px/1 var(--r-mono); color: var(--r-t4); }
+html body #data-mode-overlay .r-code-b { background: #0b1020; }
+html body #data-mode-overlay .r-code-b textarea {
+  display: block !important; width: 100% !important; min-height: 230px !important; box-sizing: border-box !important; resize: vertical;
+  margin: 0 !important; padding: 10px 12px 10px 40px !important; border: 0 !important; border-radius: 0 !important;
+  background: linear-gradient(90deg, #0d1424 0 30px, transparent 30px) !important; color: #c9d4ff !important;
+  font: 400 12px/1.65 var(--r-mono) !important;
+}
+html body #data-mode-overlay .r-code-f { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-top: 1px solid var(--r-line); }
+html body .r-sheet .r-chipbtn.r-raw {
+  display: inline-flex !important; align-items: center !important; cursor: pointer;
+  height: 30px !important; padding: 0 10px !important; border-radius: 8px !important; gap: 6px !important; width: auto !important;
+  background: var(--r-s2) !important; border: 1px solid #263553 !important; color: var(--r-t2) !important; font: 500 12.5px/1 var(--r-sans) !important; opacity: 1 !important;
+}
+html body .r-sheet .r-chipbtn svg { width: 14px !important; height: 14px !important; }
+html body .r-sheet .r-chipbtn.r-danger { color: var(--r-rose) !important; background: #2a1822 !important; border-color: #4a2333 !important; }
+html body #data-mode-overlay .r-code-st { margin-left: auto; height: 26px; padding: 0 10px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font: 600 11.5px/1 var(--r-sans); background: #1d2b46; color: var(--r-t3); max-width: 50%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+html body #data-mode-overlay .r-code-st.ok { background: #133630; color: var(--r-green); }
+html body #data-mode-overlay .r-code-st.bad { background: #3a1c2a; color: var(--r-rose); }
+html body #data-mode-overlay .ed-paste-row { display: none !important; }
+html body .r-sheet .r-bigbtn { width: 100% !important; height: 52px !important; border-radius: 14px !important; font-size: 15px !important; background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important; }
+html body #data-mode-overlay #dm-saved-section .ed-section-title { justify-content: space-between !important; }
+html body #data-mode-overlay #dm-search-saved { height: 34px !important; font-family: var(--r-sans) !important; }

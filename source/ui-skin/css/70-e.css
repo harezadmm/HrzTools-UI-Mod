@@ -1,0 +1,148 @@
+/* ==========================================================================
+   E · misc sheets
+   ========================================================================== */
+html body .r-green-note { margin: 0 0 14px; background: #10202a; border-color: #1f3b3f; color: #aab5c9; }
+html body .r-green-note > .r-ico { color: var(--r-green); align-self: flex-start; margin-top: 1px; }
+html body .r-sheet .clone-tabs.r-seg { width: auto !important; }
+html body .r-sheet .clone-tab {
+  flex: 1 1 0 !important; height: 38px !important; min-height: 0 !important; margin: 0 !important; padding: 0 8px !important; border-radius: 9px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important;
+  background: transparent !important; border: 1px solid transparent !important; color: var(--r-t3) !important; font: 600 13.5px/1 var(--r-display) !important;
+}
+html body .r-sheet .clone-tab svg { display: none !important; }
+html body .r-sheet .clone-tab.active { background: #1d2b46 !important; border-color: #33456a !important; color: var(--r-t1) !important; }
+
+/* desban steps */
+html body .r-sheet .desban-step {
+  margin: 0 0 12px !important; padding: 14px !important; border-radius: 14px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important; box-shadow: none !important; opacity: 1;
+}
+html body .r-sheet .desban-step.locked { opacity: .55 !important; }
+html body .r-sheet .desban-step-head { display: flex !important; align-items: center !important; gap: 10px !important; margin: 0 0 6px !important; }
+html body .r-sheet .desban-step-num { width: 24px !important; height: 24px !important; border-radius: 6px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; background: var(--r-s3) !important; color: var(--r-t1) !important; font: 600 12px/1 var(--r-mono) !important; border: 0 !important; box-shadow: none !important; }
+html body .r-sheet .desban-step-title { font: 600 15px/1.25 var(--r-display) !important; color: var(--r-t1) !important; letter-spacing: 0 !important; text-transform: none !important; }
+html body .r-sheet .desban-step-desc { font: 400 12.5px/1.45 var(--r-sans) !important; color: var(--r-t3) !important; margin: 0 0 10px !important; }
+html body .r-sheet .desban-step-actions { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+html body .r-sheet .desban-btn.primary { background: var(--r-ac) !important; border-color: var(--r-ac) !important; color: #0b1020 !important; }
+html body .r-sheet #dsb-btn-completo { display: none !important; }
+html body .r-sheet .li-row { display: flex !important; align-items: center !important; gap: 10px !important; flex-wrap: wrap; }
+html body .r-sheet .li-status-txt { font: 400 12px/1.3 var(--r-mono) !important; color: var(--r-t3) !important; }
+html body .r-sheet .r-stico { display: inline-flex; width: 16px; height: 16px; color: var(--r-t4); vertical-align: middle; margin: 10px 8px 0 0; float: left; }
+html body .r-sheet .r-stico.on { color: var(--r-green); }
+html body .r-sheet .r-stico svg { width: 16px; height: 16px; }
+html body .r-sheet .desban-status {
+  display: block !important; margin: 10px 0 0 !important; padding: 0 !important; background: none !important; border: 0 !important;
+  font: 400 12.5px/1.35 var(--r-sans) !important; color: var(--r-t2) !important;
+}
+html body .r-sheet .desban-status:empty { display: none !important; }
+html body .r-sheet .friends-grid, html body .r-sheet #friends-grid { gap: 8px !important; }
+html body .r-sheet .clone-search-wrap { position: relative; }
+html body .r-sheet .clone-search-icon { position: absolute; left: 12px; top: 13px; color: var(--r-t4); width: 18px; height: 18px; }
+html body .r-sheet .clone-search-inp { width: 100% !important; padding-left: 38px !important; font-family: var(--r-sans) !important; }
+html body .r-sheet .import-file-row { display: flex !important; gap: 8px !important; align-items: center !important; }
+html body .r-sheet .import-file-path { flex: 1; min-width: 0; height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; background: var(--r-s2); border: 1px solid var(--r-line3); font: 400 12.5px/1 var(--r-mono) !important; color: var(--r-t3) !important; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* E5 · regatta league rows with radio */
+html body #regata-liga-modal-overlay { --sheet-dot: var(--r-rose); }
+html body #regata-liga-modal-overlay .tc-modal-card-icon img { width: 26px !important; height: 26px !important; object-fit: contain; }
+html body #regata-liga-modal-overlay .tc-modal-card-icon img + svg[data-r] { display: none; }
+html body #regata-liga-modal-overlay .tc-modal-card-icon img[style*="none"] + svg[data-r] { display: block; width: 20px; height: 20px; }
+html body #regata-liga-modal-overlay .tc-modal-card-arrow { display: none !important; }
+html body #regata-liga-modal-overlay .tc-modal-card.r-sel { background: #23214a !important; border-color: #6d6da4 !important; }
+html body #regata-liga-modal-overlay .tc-modal-card.r-sel .tc-modal-card-title span { color: var(--r-ac2) !important; }
+html body #regata-liga-modal-overlay .tc-modal-card .r-radio { width: 22px; height: 22px; }
+html body #regata-liga-modal-overlay .tc-modal-card.r-sel .r-radio { background: var(--r-ac); border: 0; }
+html body #regata-liga-modal-overlay .tc-modal-card.r-sel .r-radio svg { display: none; }
+html body #regata-liga-modal-overlay .tc-modal-card-desc span { margin-left: 4px; }
+
+/* E6 · cards router → 3 tiles */
+html body #todas-cartas-modal-overlay { --sheet-dot: var(--r-cyan); }
+html body #todas-cartas-modal-overlay .ed-body { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
+html body #todas-cartas-modal-overlay .ed-body > .tc-modal-divider { grid-column: 1 / -1; order: 0; }
+html body #todas-cartas-modal-overlay .tc-modal-card {
+  flex-direction: column !important; justify-content: center !important; gap: 10px !important; margin: 0 !important; padding: 14px 6px !important; min-height: 92px; text-align: center !important;
+}
+html body #todas-cartas-modal-overlay .tc-modal-card:first-of-type { background: #23214a !important; border-color: #6d6da4 !important; }
+html body #todas-cartas-modal-overlay .tc-modal-card-icon { background: none !important; width: 28px !important; height: 28px !important; }
+html body #todas-cartas-modal-overlay .tc-modal-card-body { align-items: center !important; }
+html body #todas-cartas-modal-overlay .tc-modal-card-title span { font: 600 13px/1.2 var(--r-display) !important; }
+html body #todas-cartas-modal-overlay .tc-modal-card-desc, html body #todas-cartas-modal-overlay .tc-modal-card-arrow { display: none !important; }
+html body #todas-cartas-modal-overlay .tc-modal-card[style*="display: none"], html body #todas-cartas-modal-overlay .tc-modal-card[style*="display:none"] { display: none !important; }
+
+/* twn-cards (card collection) bulk bar */
+html body .r-sheet .twnc-bulk { display: flex !important; align-items: center !important; gap: 8px !important; margin: 0 0 12px !important; padding: 10px 12px !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important; }
+html body .r-sheet .twnc-bulk-lbl { font: 600 12.5px/1 var(--r-sans) !important; color: var(--r-t2) !important; }
+html body .r-sheet .twnc-bulk-inp { flex: 1 1 auto; min-width: 0; height: 36px !important; }
+html body .r-sheet .twnc-bulk-btn { height: 36px !important; }
+
+/* E7 · trains list items */
+html body #trains-modal-overlay .passe-list, html body .r-sheet .passe-list { display: flex !important; flex-direction: column !important; gap: 8px !important; max-height: none !important; overflow: visible !important; }
+html body .r-sheet .passe-empty { font: 400 12px/1.4 var(--r-sans) !important; color: var(--r-t4) !important; text-align: center; padding: 14px 0; }
+html body #trains-modal-overlay #trains-tabs.passe-tabs { display: flex !important; gap: 8px !important; padding: 0 !important; background: none !important; border: 0 !important; margin: 0 0 12px !important; }
+html body #trains-modal-overlay #trains-tabs .passe-tab { flex: 1 1 0 !important; height: 40px !important; font: 600 13.5px/1 var(--r-display) !important; }
+html body #trains-modal-overlay #trains-tabs .passe-tab.active { background: #23214a !important; border-color: #6d6da4 !important; color: var(--r-ac2) !important; }
+
+/* E8 · fetch city steps */
+html body .r-sheet .stats-section {
+  margin: 0 0 12px !important; padding: 14px !important; border-radius: 14px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important; box-shadow: none !important;
+}
+html body .r-sheet .stats-section > div:first-child { font: 600 14px/1.3 var(--r-display) !important; color: var(--r-t1) !important; letter-spacing: 0 !important; text-transform: none !important; margin-bottom: 4px !important; }
+html body .r-sheet .stats-section > div:nth-child(2) { font: 400 12.5px/1.45 var(--r-sans) !important; color: var(--r-t3) !important; }
+html body .r-sheet .stats-section .btn { height: 44px !important; width: 100% !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important; font: 600 14px/1 var(--r-display) !important; }
+html body .r-sheet #li-status, html body .r-sheet #fetch-result-body { font: 400 12px/1.5 var(--r-mono) !important; color: var(--r-t3) !important; }
+html body .r-sheet #fetch-result-box { background: #0f1f22 !important; border-color: #17362f !important; }
+
+/* E9 · backup */
+html body #bk-overlay .bk-opt {
+  display: flex !important; align-items: center !important; gap: 12px !important; width: 100% !important; min-height: 64px; height: auto !important; box-sizing: border-box;
+  padding: 12px 14px !important; border-radius: 14px !important; text-align: left !important;
+  background: var(--r-s2) !important; border: 1px solid #202e49 !important; color: var(--r-t1) !important;
+}
+html body #bk-overlay #bk-opt-save { background: #1e2242 !important; border-color: #51509c !important; }
+html body #bk-overlay #bk-opt-save .r-tile { background: var(--r-ac); color: #0b1020; }
+html body #bk-overlay .bk-opt > svg { display: none !important; }
+html body #bk-overlay .bk-opt br { display: none; }
+html body #bk-overlay .bk-opt > span:not(.r-tile) { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+html body #bk-overlay .bk-t { font: 600 15px/1.25 var(--r-display) !important; color: var(--r-t1) !important; }
+html body #bk-overlay .bk-s { font: 400 12px/1.35 var(--r-sans) !important; color: var(--r-t3) !important; }
+html body #bk-overlay .bk-topo { display: flex !important; gap: 8px !important; align-items: center !important; }
+html body #bk-overlay .bk-search { flex: 1 1 auto; min-width: 0; font-family: var(--r-sans) !important; }
+html body #bk-overlay #bk-list > * {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important;
+  font: 500 13px/1.3 var(--r-mono) !important; color: var(--r-t1) !important;
+}
+html body #bk-overlay .bk-status { font: 400 12px/1.4 var(--r-mono) !important; color: var(--r-t3) !important; margin-top: 10px; }
+
+/* E10 · reset device dialog */
+html body .r-ov.r-ov-dialog { background: var(--r-bg) !important; flex-direction: column !important; justify-content: center !important; align-items: stretch !important; }
+html body .r-sheet.r-dialog { flex: none !important; text-align: center !important; }
+html body .r-sheet.r-dialog > .r-shead { display: none !important; }
+html body .r-dlg { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 0 16px; }
+html body .r-dlg-ico { width: 56px; height: 56px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; background: #2c2034; color: var(--r-rose); margin: 0 0 16px; }
+html body .r-dlg-ico svg { width: 26px; height: 26px; }
+html body .r-dlg-t { font: 600 20px/1.3 var(--r-display); color: var(--r-t1); margin: 0 0 10px; }
+html body .r-dlg-d { font: 400 13.5px/1.55 var(--r-sans); color: var(--r-t3); }
+html body .r-sheet.r-dialog .ed-body { text-align: left; }
+html body .r-sheet.r-dialog .ed-section { padding: 12px 14px !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 0 !important; margin: 0 0 16px !important; }
+html body .r-sheet.r-dialog .ed-section-title { display: none !important; }
+html body .r-sheet.r-dialog ol { margin: 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 8px; }
+html body .r-sheet.r-dialog ol li { position: relative; padding-left: 26px; font: 400 12.5px/1.4 var(--r-sans) !important; color: var(--r-t2) !important; }
+html body .r-sheet.r-dialog ol li::before {
+  content: ""; position: absolute; left: 0; top: 1px; width: 16px; height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236f7d94' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M9 12h6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+html body .r-dlg-acts { display: flex; flex-direction: column; gap: 10px; }
+html body .r-dlg-foot { text-align: center; font: 400 12.5px/1.4 var(--r-sans); color: var(--r-t4); margin-top: 18px; }
+html body #regata-liga-modal-overlay .tc-modal-card-icon img { display: none !important; }
+html body #regata-liga-modal-overlay .tc-modal-card-icon svg[data-r] { display: block !important; width: 20px !important; height: 20px !important; }
+html body .r-sheet .desban-step-actions > *, html body .r-sheet .desban-step-actions .clone-tabs, html body .r-sheet #dsb-panel-friends .li-row > .desban-btn { width: 100% !important; box-sizing: border-box !important; }
+html body .r-sheet .desban-step-actions .clone-tabs { margin: 0 0 10px !important; }
+html body .r-sheet .sc-modal-foot > .sc-foot-cancel, html body .r-sheet .sc-modal-foot > .sc-foot-ok { flex: 1 1 0 !important; height: 50px !important; border-radius: 14px !important; font: 600 15px/1 var(--r-display) !important; }
+html body .r-sheet .sc-modal-foot > .sc-foot-cancel { background: var(--r-s2) !important; border: 1px solid var(--r-line3) !important; color: var(--r-t1) !important; }
+html body .r-sheet .sc-modal-foot > .sc-foot-ok { background: var(--r-ac) !important; border: 1px solid var(--r-ac) !important; color: #0b1020 !important; }
+html body .r-sheet .sc-modal-bar { display: none !important; }
+html body #sc-dep-modal .sc-dep-atual { font: 600 12.5px/1 var(--r-mono) !important; color: var(--r-ac2) !important; }
+html body #sc-dep-modal .sc-dep-custom-lbl { display: flex; gap: 6px; align-items: center; margin: 14px 0 8px !important; font: 600 13px/1.2 var(--r-sans) !important; color: var(--r-t2) !important; }
+html body #sc-dep-modal .sc-dep-custom-row { display: flex !important; gap: 8px !important; align-items: center !important; }
+html body #sc-dep-modal #sc-dep-custom-input { flex: 1 1 auto; min-width: 0; }
+html body #sc-dep-modal .sc-dep-prev { font: 400 12px/1 var(--r-mono) !important; color: var(--r-t4) !important; }
+html body .r-sheet .tc-modal-card.on { background: #1e2242 !important; border-color: #51509c !important; }

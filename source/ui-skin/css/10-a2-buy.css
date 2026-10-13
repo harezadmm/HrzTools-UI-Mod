@@ -1,0 +1,43 @@
+/* ==========================================================================
+   A2 · Purchase — locked game sheet (#px-buy-overlay)
+   ========================================================================== */
+html body #px-buy-overlay {
+  background: rgba(7, 9, 17, .78) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  align-items: flex-end !important; justify-content: stretch !important; padding: 0 !important;
+}
+html body #px-buy-overlay .px-buy-box {
+  position: relative !important; width: 100% !important; max-width: none !important; margin: 0 !important; box-sizing: border-box !important;
+  padding: 10px 16px calc(16px + var(--sa-bottom, 0px)) !important; text-align: left !important;
+  border-radius: 22px 22px 0 0 !important; background: var(--r-s1) !important;
+  border: 1px solid var(--r-line2) !important; border-bottom: 0 !important; box-shadow: 0 -20px 60px rgba(0,0,0,.45) !important;
+  max-height: calc(100% - var(--sa-top, 24px) - 12px) !important; overflow-y: auto !important; animation: none !important;
+  display: block !important;
+}
+html body #px-buy-overlay .px-buy-box > .px-buy-icon,
+html body #px-buy-overlay .px-buy-box > .px-buy-title,
+html body #px-buy-overlay .px-buy-box > .px-buy-sub,
+html body #px-buy-overlay .px-buy-box > .px-buy-actions,
+html body #px-buy-overlay .px-buy-box > .px-buy-foot { display: none !important; }
+html body #px-buy-overlay .r-buy-prod {
+  border: 1px solid #51509c; background: var(--r-s2); border-radius: 14px; padding: 14px 15px; margin: 0 0 22px;
+}
+html body #px-buy-overlay .r-buy-top { display: flex; align-items: center; gap: 12px; }
+html body #px-buy-overlay .r-buy-top .r-tile { width: 44px; height: 44px; border-radius: 10px; }
+html body #px-buy-overlay .r-buy-top .r-tile svg { width: 22px; height: 22px; }
+html body #px-buy-overlay .r-buy-name { font: 600 15px/1.3 var(--r-display); color: var(--r-t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body #px-buy-overlay .r-buy-life { font: 400 12px/1.3 var(--r-sans); color: var(--r-t4); margin-top: 2px; }
+html body #px-buy-overlay .r-buy-sep { height: 1px; background: var(--r-line2); margin: 14px 0 12px; }
+html body #px-buy-overlay .r-buy-price { display: flex; align-items: center; gap: 10px; }
+html body #px-buy-overlay .r-buy-amt { font: 700 31px/1 var(--r-sans); color: var(--r-t1); letter-spacing: -.02em; }
+html body #px-buy-overlay .r-buy-once { font: 600 12px/1.25 var(--r-sans); color: var(--r-t2); }
+html body #px-buy-overlay .r-buy-was { font: 400 11.5px/1.25 var(--r-sans); color: var(--r-t4); }
+html body #px-buy-overlay .r-buy-price .r-pill.green { margin-left: auto; height: 24px; border-radius: 8px; padding: 0 9px; font-size: 12px; }
+html body #px-buy-overlay .r-sec { margin-bottom: 14px !important; }
+html body #px-buy-overlay .r-inc { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+html body #px-buy-overlay .r-inc li { display: flex; align-items: center; gap: 12px; font: 400 13.5px/1.3 var(--r-sans); color: var(--r-t2); }
+html body #px-buy-overlay .r-inc li .r-ico { width: 20px; height: 20px; padding: 4px; border-radius: 50%; background: #183236; color: var(--r-green); box-sizing: border-box; }
+html body #px-buy-overlay .r-note { margin: 0 0 20px; }
+html body #px-buy-overlay .r-btn.pri { margin-bottom: 10px !important; }
+html body #px-buy-overlay .r-buy-top .r-pill.ac { font-size: 10px; letter-spacing: .1em; padding: 0 9px; }
+html body #px-buy-overlay .r-buy-name { font-size: 14.5px; }
+html body #px-buy-overlay .r-note { font-size: 11.5px; gap: 8px; padding: 10px 10px; }

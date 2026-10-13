@@ -1,0 +1,107 @@
+/* segmented tabs (barn tabs, passe tabs, generic) */
+html body .r-sheet .barn-tabs, html body .r-sheet .passe-tabs, html body .r-sheet .r-seg {
+  display: flex !important; gap: 4px !important; padding: 4px !important; margin: 0 0 16px !important; border-radius: 12px !important;
+  background: var(--r-s2) !important; border: 1px solid #202e49 !important;
+}
+html body .r-sheet .barn-tab, html body .r-sheet .passe-tabs > .passe-tab, html body .r-sheet .r-seg > button {
+  flex: 1 1 0 !important; height: 38px !important; min-height: 0 !important; margin: 0 !important; padding: 0 8px !important; border-radius: 9px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important;
+  background: transparent !important; border: 1px solid transparent !important; color: var(--r-t3) !important;
+  font: 600 13.5px/1 var(--r-display) !important;
+}
+html body .r-sheet .barn-tab svg { width: 15px !important; height: 15px !important; }
+html body .r-sheet .barn-tab.active, html body .r-sheet .passe-tabs > .passe-tab.active, html body .r-sheet .r-seg > button.active, html body .r-sheet .r-seg > button.on {
+  background: #1d2b46 !important; border-color: #33456a !important; color: var(--r-t1) !important;
+}
+
+/* C3 · Barn Items */
+html body #barn-items-modal-overlay #barn-panel-view { overflow: visible !important; flex: none !important; min-height: 0 !important; }
+html body #barn-items-modal-overlay .barn-items-summary {
+  display: flex !important; align-items: center !important; justify-content: space-between !important; margin: 0 0 10px !important; padding: 0 !important;
+  background: none !important; border: 0 !important; font: 600 11px/1 var(--r-sans) !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--r-t4) !important;
+}
+html body #barn-items-modal-overlay .barn-items-summary > span { display: inline-flex; align-items: center; gap: 6px; }
+html body #barn-items-modal-overlay .barn-items-summary > span:first-child::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--r-green); }
+html body #barn-items-modal-overlay .barn-items-summary b { font: 600 11px/1 var(--r-mono) !important; color: var(--r-lime) !important; letter-spacing: 0 !important; }
+html body #barn-items-modal-overlay .barn-items-list { display: flex !important; flex-direction: column !important; gap: 8px !important; max-height: none !important; overflow: visible !important; padding: 0 !important; }
+html body #barn-items-modal-overlay .barn-item-row {
+  display: flex !important; align-items: center !important; gap: 12px !important; min-height: 56px; box-sizing: border-box;
+  padding: 9px 10px !important; margin: 0 !important; border-radius: 12px !important;
+  background: var(--r-s2) !important; border: 1px solid #202e49 !important;
+}
+html body #barn-items-modal-overlay .barn-item-row > .r-tile { width: 36px; height: 36px; border-radius: 9px; }
+html body #barn-items-modal-overlay .barn-item-row > .r-tile svg { width: 18px; height: 18px; }
+html body #barn-items-modal-overlay .r-bi-txt { flex: 1 1 auto; min-width: 0; }
+html body #barn-items-modal-overlay .barn-item-name { display: block; font: 600 14px/1.25 var(--r-display) !important; color: var(--r-t1) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body #barn-items-modal-overlay .r-bi-sub { font: 400 11px/1.3 var(--r-mono); color: var(--r-t4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body .r-stepper { display: inline-flex; align-items: center; height: 34px; border-radius: 10px; background: #0f1626; border: 1px solid #263553; flex: none; overflow: hidden; }
+html body .r-stepper > button.r-raw { width: 30px; height: 100%; border: 0; background: transparent; color: var(--r-t3); display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; }
+html body .r-stepper > button.r-raw svg { width: 15px; height: 15px; }
+html body .r-sheet .r-stepper > input, html body .r-stepper > input {
+  width: 52px !important; height: 100% !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: transparent !important;
+  text-align: center !important; font: 600 13.5px/1 var(--r-mono) !important; color: var(--r-t1) !important; -moz-appearance: textfield;
+}
+html body .r-stepper > input::-webkit-outer-spin-button, html body .r-stepper > input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+html body #barn-items-modal-overlay .barn-add-panel.is-hidden { display: none !important; }
+html body #barn-items-modal-overlay .barn-add-search-wrap { margin: 0 0 12px !important; }
+html body #barn-items-modal-overlay .barn-add-search { width: 100% !important; }
+html body #barn-items-modal-overlay .barn-addall-bar { display: flex !important; align-items: center !important; gap: 8px !important; margin: 12px 0 0 !important; padding: 10px 12px !important; border-radius: 12px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important; }
+html body #barn-items-modal-overlay .barn-addall-label { font: 600 12.5px/1 var(--r-sans) !important; color: var(--r-t2) !important; }
+html body #barn-items-modal-overlay .barn-addall-qty { width: 90px !important; height: 36px !important; }
+html body #barn-items-modal-overlay .barn-addall-btn { height: 36px !important; background: var(--r-ac) !important; border-color: var(--r-ac) !important; color: #0b1020 !important; }
+
+/* tc-modal-card → reference action row (icon tile · title · desc · chevron) */
+html body .r-sheet .tc-modal-divider { display: flex !important; align-items: center !important; gap: 8px !important; margin: 0 0 10px !important; padding: 0 !important; }
+html body .r-sheet .tc-modal-divider-line { display: none !important; }
+html body .r-sheet .tc-modal-divider-text {
+  display: inline-flex !important; align-items: center !important; gap: 8px !important; padding: 0 !important; background: none !important;
+  font: 600 11px/1.2 var(--r-sans) !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--r-t4) !important;
+}
+html body .r-sheet .tc-modal-divider-text::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--sheet-dot, var(--r-ac)); }
+html body .r-sheet .tc-modal-card {
+  display: flex !important; align-items: center !important; gap: 12px !important; width: 100% !important; box-sizing: border-box !important;
+  min-height: 64px; height: auto !important; margin: 0 0 8px !important; padding: 12px 14px !important; border-radius: 14px !important; text-align: left !important;
+  background: var(--r-s2) !important; border: 1px solid #202e49 !important; box-shadow: none !important; transform: none !important; cursor: pointer;
+}
+html body .r-sheet .tc-modal-card::before, html body .r-sheet .tc-modal-card::after { display: none !important; }
+html body .r-sheet .tc-modal-card-icon {
+  width: 40px !important; height: 40px !important; border-radius: 10px !important; flex: none !important; margin: 0 !important; border: 0 !important; box-shadow: none !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important; background: var(--tile-bg, #222749) !important; color: var(--tile-fg, var(--r-ac2)) !important;
+}
+html body .r-sheet .tc-modal-card-icon svg { width: 20px !important; height: 20px !important; color: inherit !important; stroke: currentColor !important; }
+html body .r-sheet .tc-modal-card-body { flex: 1 1 auto !important; min-width: 0 !important; display: flex !important; flex-direction: column !important; gap: 2px !important; }
+html body .r-sheet .tc-modal-card-title, html body .r-sheet .tc-modal-card-title span { font: 600 15px/1.25 var(--r-display) !important; color: var(--r-t1) !important; letter-spacing: -.01em !important; text-transform: none !important; }
+html body .r-sheet .tc-modal-card-desc { font: 400 12.5px/1.35 var(--r-sans) !important; color: var(--r-t3) !important; }
+html body .r-sheet .tc-modal-card-arrow { flex: none !important; width: 18px !important; height: 18px !important; color: var(--r-t4) !important; margin: 0 !important; }
+html body .r-sheet .tc-modal-card-arrow svg { width: 18px !important; height: 18px !important; }
+html body .r-sheet .tc-modal-card:disabled { opacity: .5 !important; }
+
+/* C4 · Golden Pass Hub — two target tiles side by side (amber accent) */
+html body #passe-hub-modal-overlay { --sheet-dot: var(--r-amber); }
+html body #passe-hub-modal-overlay .ed-body { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+html body #passe-hub-modal-overlay .ed-body > .tc-modal-divider { grid-column: 1 / -1; margin: 0 !important; }
+html body #passe-hub-modal-overlay .tc-modal-card {
+  flex-direction: column !important; align-items: flex-start !important; gap: 0 !important; margin: 0 !important; padding: 14px 12px 12px !important; min-height: 136px;
+}
+html body #passe-hub-modal-overlay .tc-modal-card-icon { width: 36px !important; height: 36px !important; margin: 0 0 14px !important; }
+html body #passe-hub-modal-overlay .tc-modal-card-desc { display: none !important; }
+html body #passe-hub-modal-overlay .tc-modal-card-arrow { display: none !important; }
+html body #passe-hub-modal-overlay .tc-modal-card-body { width: 100%; }
+html body #passe-hub-modal-overlay .tc-modal-card .r-tbtn {
+  display: flex; align-items: center; justify-content: center; width: 100%; height: 36px; margin-top: 12px; border-radius: 10px;
+  background: var(--r-s3); color: var(--r-t1); font: 600 13.5px/1 var(--r-display);
+}
+html body #passe-hub-modal-overlay .tc-modal-card.r-gold { background: #1d1d23 !important; border-color: #f5c26b !important; }
+html body #passe-hub-modal-overlay .tc-modal-card.r-gold .r-tbtn { background: var(--r-amber); color: #2a1e05; }
+/* pass type options */
+html body #passe-tipo-modal-overlay { --sheet-dot: var(--r-amber); }
+html body #passe-tipo-modal-overlay .tc-modal-card.r-sel { background: #2a2620 !important; border-color: #c9a25a !important; }
+html body #passe-tipo-modal-overlay .tc-modal-card.r-sel .tc-modal-card-title span { color: var(--r-amber) !important; }
+/* pass time */
+html body #passe-time-modal-overlay #passe-time-remaining {
+  padding: 12px 14px !important; border-radius: 12px !important; background: #0f2530 !important; border: 1px solid #1a3b47 !important; text-align: left !important;
+  font: 400 12.5px/1.4 var(--r-mono) !important; color: var(--r-cyan) !important;
+}
+html body #passe-time-modal-overlay label { font: 600 13px/1.3 var(--r-sans) !important; color: var(--r-t2) !important; letter-spacing: 0 !important; }
+html body .r-sheet .passe-tab { height: 40px !important; border-radius: 10px !important; background: var(--r-s2) !important; border: 1px solid #202e49 !important; color: #aab5c9 !important; font: 500 13px/1 var(--r-mono) !important; }
+html body .r-sheet .passe-tab.active { background: #2a2620 !important; border-color: #c9a25a !important; color: var(--r-amber) !important; }

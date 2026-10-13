@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* ==========================================================================
+   HRZ REFERENCE SKIN — final visual layer matching "UI REFRENSI KUMAU".
+   Pure presentation: no selector here changes bridge/auth behaviour.
+   ========================================================================== */
+:root {
+  --r-bg: #070a12;
+  --r-ink: #0b1020;
+  --r-s1: #10182b;          /* card / sheet surface        */
+  --r-s2: #17233a;          /* raised control              */
+  --r-s3: #1d2b46;          /* chip / neutral tile         */
+  --r-line: #1c2842;        /* card border                 */
+  --r-line2: #283550;       /* sheet / input border        */
+  --r-line3: #2c3b58;       /* button outline              */
+  --r-t1: #f6f8ff;
+  --r-t2: #c3ccdc;
+  --r-t3: #8f9bb0;
+  --r-t4: #6f7d94;
+  --r-t5: #4e576b;
+  --r-ac: #8b7cff;
+  --r-ac2: #b9b2ff;
+  --r-ac-t: #222749;        /* accent tint tile            */
+  --r-ac-b: #6d6da4;        /* accent tint border          */
+  --r-green: #42d7a5;
+  --r-cyan: #41d8ff;
+  --r-pink: #ef72c2;
+  --r-lime: #a8e06e;
+  --r-amber: #f5c26b;
+  --r-orange: #ffb44c;
+  --r-rose: #ff7890;
+  --r-display: 'Sora', 'Inter', system-ui, sans-serif;
+  --r-sans: 'Inter', system-ui, sans-serif;
+  --r-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --r-top: calc(var(--sa-top, 24px) + 14px);
+}
+
+/* ── Shared atoms (used by the JS-built pieces) ─────────────────────────── */
+.r-ico { width: 20px; height: 20px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+.r-ico svg { width: 100%; height: 100%; display: block; }
+.r-feature-icon {
+  width: 52% !important; height: 52% !important; display: block; object-fit: contain;
+  pointer-events: none; user-select: none;
+}
+.r-brand-host { overflow: hidden !important; padding: 0 !important; }
+.r-game-logo {
+  width: 100% !important; height: 100% !important; display: block; object-fit: cover;
+  border-radius: inherit; pointer-events: none; user-select: none;
+}
+.r-tile {
+  width: 40px; height: 40px; border-radius: 10px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--tile-bg, var(--r-ac-t)); color: var(--tile-fg, var(--r-ac));
+}
+.r-tile svg { width: 20px; height: 20px; }
+.r-tile.sm { width: 32px; height: 32px; border-radius: 8px; }
+.r-tile.sm svg { width: 16px; height: 16px; }
+.r-sec {
+  display: flex; align-items: center; gap: 8px;
+  font: 600 11px/1 var(--r-sans) !important; letter-spacing: .16em !important; text-transform: uppercase;
+  color: var(--r-t4) !important; margin: 0 !important; padding: 0 !important;
+}
+.r-sec::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--dot, var(--r-ac)); flex: none; }
+.r-iconbtn {
+  width: 40px; height: 40px; border-radius: 12px; flex: none;
+  display: inline-flex !important; align-items: center; justify-content: center;
+  background: var(--r-s2) !important; border: 1px solid #202e49 !important; color: var(--r-t1) !important;
+  padding: 0 !important; margin: 0 !important; box-shadow: none !important; cursor: pointer;
+}
+.r-iconbtn svg { width: 20px; height: 20px; }
+
+/* tone helpers: --tile-bg / --tile-fg */
+.t-ac   { --tile-bg: #202546; --tile-fg: #8b7cff; }
+.t-ac2  { --tile-bg: #222749; --tile-fg: #b9b2ff; }
+.t-green{ --tile-bg: #183236; --tile-fg: #42d6a1; }
+.t-pink { --tile-bg: #2e243d; --tile-fg: #ef72c2; }
+.t-cyan { --tile-bg: #152d45; --tile-fg: #41d8ff; }
+.t-lime { --tile-bg: #23332c; --tile-fg: #a8e06e; }
+.t-amber{ --tile-bg: #2a2a2f; --tile-fg: #f5c26b; }
+.t-rose { --tile-bg: #2c2034; --tile-fg: #ff7890; }
+.t-teal { --tile-bg: #163036; --tile-fg: #42d7a5; }
+.t-grey { --tile-bg: #1d2b46; --tile-fg: #6f7d94; }
+.t-black{ --tile-bg: #000000; --tile-fg: #b9b2ff; }
+
+/* ==========================================================================
+   A1 · Choose your game
+   ========================================================================== */
+html body #px-select-overlay {
+  background: var(--r-bg) !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  align-items: flex-start !important; justify-content: flex-start !important;
+  padding: 0 !important;
+}
+html body #px-select-overlay .px-sel-box {
+  max-width: none !important; width: 100% !important; margin: 0 !important;
+  padding: var(--r-top) 16px 24px !important; box-sizing: border-box !important;
+  background: none !important; border: 0 !important; box-shadow: none !important;
+  min-height: 100%;
+}
+html body #px-select-overlay .px-sel-head {
+  position: relative; padding: 0 56px 0 4px !important; margin: 0 0 14px !important;
+  text-align: left !important; background: none !important; border: 0 !important;
+}
+html body #px-select-overlay .px-sel-title {
+  font: 600 22px/1.3 var(--r-display) !important; letter-spacing: -.02em !important; text-transform: none !important;
+  color: var(--r-t1) !important; text-shadow: none !important; margin: 0 !important;
+}
+html body #px-select-overlay .px-sel-sub {
+  font: 400 12px/1.3 var(--r-sans) !important; letter-spacing: 0 !important; text-transform: none !important;
+  color: var(--r-t4) !important; margin: 4px 0 0 !important;
+}
+html body #px-select-overlay .px-sel-sub span { font: inherit !important; letter-spacing: 0 !important; text-transform: none !important; color: inherit !important; }
+html body #px-select-overlay .px-sel-sub .r-unlocked { color: var(--r-ac2) !important; font-weight: 600 !important; }
+html body #px-select-overlay .px-sel-sub .r-dotsep { margin: 0 6px; }
+html body #px-select-overlay .r-prof { position: absolute; right: 0; top: 0; }
+html body #px-select-overlay .px-sel-body {
+  display: flex !important; flex-direction: column !important; gap: 12px !important; padding: 0 !important;
+}
+html body #px-select-overlay .px-gcard {
+  display: flex !important; flex-direction: row !important; align-items: center !important;
+  gap: 12px !important; padding: 14px 14px 14px 14px !important; min-height: 68px; box-sizing: border-box;
+  border-radius: 14px !important; border: 1px solid var(--r-line) !important;
+  background: var(--r-s1) !important; box-shadow: none !important;
+  transform: none !important; opacity: 1 !important; filter: none !important; animation: none !important;
+}
+html body #px-select-overlay .px-gcard::before, html body #px-select-overlay .px-gcard::after { display: none !important; }
+html body #px-select-overlay .px-gcard-icon {
+  width: 40px !important; height: 40px !important; border-radius: 10px !important; margin: 0 !important;
+  border: 0 !important; box-shadow: none !important; flex: none !important;
+  background: var(--tile-bg) !important; color: var(--tile-fg) !important;
+}
+html body #px-select-overlay .px-gcard-icon svg { width: 20px !important; height: 20px !important; }
+html body #px-select-overlay .px-gcard-icon.r-brand-host {
+  background: transparent !important; overflow: hidden !important;
+  outline: 1px solid rgba(255,255,255,.12) !important;
+  box-shadow: 0 5px 14px rgba(2,6,23,.34) !important;
+}
+html body #px-select-overlay .px-gcard.px-gcard-locked .r-game-logo {
+  filter: grayscale(.72) saturate(.45) brightness(.68) !important; opacity: .7;
+}
+html body #px-select-overlay .r-gtext { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: stretch !important; gap: 3px; text-align: left !important; }
+html body #px-select-overlay .r-gtext > * { align-self: stretch !important; text-align: left !important; width: auto !important; max-width: 100% !important; }
+html body #px-select-overlay .px-gcard-title {
+  font: 600 15px/1.25 var(--r-display) !important; color: var(--r-t1) !important; letter-spacing: -.01em !important;
+  margin: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+html body #px-select-overlay .px-gcard-sub {
+  font: 400 12px/1.3 var(--r-sans) !important; color: var(--r-t3) !important; margin: 0 !important; min-height: 0 !important;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: unset !important; display: block !important;
+}
+html body #px-select-overlay .px-gcard-open {
+  flex: none !important; margin: 0 !important; padding: 0 10px 0 12px !important; height: 26px !important; min-width: 0 !important; min-height: 0 !important; max-height: 26px !important; box-sizing: border-box !important;
+  border-radius: 13px !important; border: 1px solid transparent !important;
+  background: var(--r-ac-t) !important; box-shadow: none !important;
+  font: 600 12.5px/1 var(--r-display) !important; letter-spacing: 0 !important; text-transform: none !important;
+  color: var(--r-ac2) !important; display: inline-flex !important; align-items: center !important; gap: 5px !important;
+}
+html body #px-select-overlay .px-gcard-open > span { display: inline-flex; transform: none !important; }
+html body #px-select-overlay .px-gcard-open svg { width: 14px; height: 14px; }
+/* locked / soon */
+html body #px-select-overlay .px-gcard.px-gcard-locked .px-gcard-icon { background: var(--r-s3) !important; color: var(--r-t4) !important; }
+html body #px-select-overlay .px-gcard.px-gcard-locked .px-gcard-title { color: var(--r-t4) !important; }
+html body #px-select-overlay .px-gcard.px-gcard-locked .px-gcard-sub { color: var(--r-t5) !important; }
+html body #px-select-overlay .px-gcard.px-gcard-locked .px-gcard-open {
+  background: var(--r-s3) !important; border-color: #2f3f5e !important; color: var(--r-t4) !important;
+  font: 600 10.5px/1 var(--r-sans) !important; letter-spacing: .14em !important; text-transform: uppercase !important;
+  padding: 0 11px !important; gap: 6px !important;
+}
+html body #px-select-overlay .px-gcard.px-gcard-locked .px-gcard-open svg { width: 12px; height: 12px; }
+html body #px-select-overlay .px-sel-note { font: 500 12px/1.4 var(--r-sans) !important; color: var(--r-rose) !important; }
+
+/* scrollbars are invisible in the reference */
+html body ::-webkit-scrollbar { width: 0 !important; height: 0 !important; background: transparent !important; }
