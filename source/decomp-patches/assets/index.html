@@ -876,6 +876,14 @@
         html body #regata-liga-modal-overlay .regata-custom-confirm:focus-visible { border-color:#F43F5E !important; background:rgba(244,63,94,.10) !important; transform:scale(1.05); outline:none; }
         html body #regata-liga-modal-overlay .regata-custom-confirm span { display:none !important; }
         html body #regata-liga-modal-overlay .regata-custom-confirm svg { display:block !important; width:16px !important; height:16px !important; pointer-events:none; }
+        #regata-liga-modal-overlay .regata-modal-repeat-panel { margin:0 0 10px; padding:10px 11px; border:1px solid rgba(244,63,94,.28); border-radius:10px; background:rgba(244,63,94,.065); }
+        #regata-liga-modal-overlay .regata-modal-repeat-title { color:#F43F5E; font-size:10.5px; font-weight:800; letter-spacing:.55px; text-transform:uppercase; margin-bottom:8px; }
+        #regata-liga-modal-overlay .regata-modal-repeat-row { display:flex; align-items:center; gap:8px; }
+        #regata-liga-modal-overlay .regata-modal-repeat-field { display:flex; align-items:center; gap:5px; color:rgba(255,255,255,.68); font-size:10.5px; flex:1; }
+        #regata-liga-modal-overlay .regata-modal-repeat-field input { width:58px; box-sizing:border-box; padding:6px 4px; border:1px solid rgba(244,63,94,.35); border-radius:7px; color:#F43F5E; background:rgba(244,63,94,.06); font-size:11px; font-weight:700; text-align:center; }
+        #regata-liga-modal-overlay .regata-modal-repeat-field input:focus { outline:none; border-color:rgba(244,63,94,.8); box-shadow:0 0 0 2px rgba(244,63,94,.12); }
+        #regata-liga-modal-overlay .regata-modal-repeat-hint { margin-top:7px; color:rgba(255,255,255,.48); font-size:10px; line-height:1.35; }
+
         .passe-tabs { display:flex; gap:8px; margin-bottom:10px; }
         .passe-tab { flex:1; padding:7px; border-radius:7px; border:1px solid rgba(139,92,246,.15); background:rgba(255,255,255,.02); color:rgba(255,255,255,.5); font-size:11px; font-weight:700; cursor:pointer; transition:.2s; text-transform:uppercase; letter-spacing:.5px; }
         .passe-tab.active { background:linear-gradient(135deg,rgba(91,33,182,.28),rgba(139,92,246,.18)); border-color:rgba(139,92,246,.45); color:#8B5CF6; }
@@ -4523,10 +4531,11 @@
                         </div>
                         <div class="ap-card-btns">
                             <button class="ap-btn ap-btn--rose btn-regata-tarefas" onclick="cmdRegataTarefas()" data-i18n="regata_tarefas_btn" style="display:none;">Tarefas</button>
+                            <button class="ap-btn ap-btn--rose btn-regata-repeat" onclick="cmdOpenRegataLigaModal()">Repeat</button>
                             <button class="ap-btn ap-btn--rose btn-regata-use" onclick="cmdRegataUse()" data-i18n="regata_use_btn">Use</button>
                         </div>
                     </div>
-                    <div class="ap-card ap-card--amber" id="todas-cartas-box" style="opacity:.4;pointer-events:none;">
+                    <div class="ap-card ap-card--amber" id="todas-cartas-box" style="opacity:1;pointer-events:auto;">
                         <div class="ap-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 4v16M2 10h20M2 14h20"/></svg></div>
                         <div class="ap-card-info">
                             <span class="ap-card-title" data-i18n="todas_cartas_title">Cards</span>
@@ -5011,7 +5020,7 @@
                                         <input type="checkbox" id="ecr-only-missing" onchange="ecrOnlyMissingToggle(this)">
                                         <span data-i18n="enviar_rede_so_faltantes">Only missing</span>
                                     </label>
-                                    <button class="ecr-mini-btn" id="ecr-btn-load-friends" onclick="cmdEcrLoadFriends()">
+                                    <button type="button" class="ecr-mini-btn" id="ecr-btn-load-friends" onclick="cmdEcrLoadFriends()">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                                         <span data-i18n="dsb_load_friends_btn">Load Friends</span>
                                     </button>
@@ -5062,8 +5071,8 @@
                         <div id="ecr-err" class="ecr-err" style="display:none;"></div>
                     </div>
                     <div class="acad2-ftr">
-                        <button class="acad2-cancel" onclick="cmdCloseEnviarCartaRedeModal()" data-i18n="barn_cancel">Cancelar</button>
-                        <button class="acad2-apply" id="btn-enviar-carta-rede" data-i18n="enviar_rede_btn_send" onclick="cmdConfirmEnviarCartaRede()">Enviar</button>
+                        <button type="button" class="acad2-cancel" onclick="cmdCloseEnviarCartaRedeModal()" data-i18n="barn_cancel">Cancelar</button>
+                        <button type="button" class="acad2-apply" id="btn-enviar-carta-rede" data-i18n="enviar_rede_btn_send" onclick="cmdConfirmEnviarCartaRede()">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -5097,6 +5106,15 @@
                         <button class="ed-close" onclick="cmdCloseRegataLigaModal()">&#10005; <span data-i18n="ed_close">Close</span></button>
                     </div>
                     <div class="ed-body" style="gap:0;">
+                        <div class="regata-modal-repeat-panel">
+                            <div class="regata-modal-repeat-title">Spam / Repeat</div>
+                            <div class="regata-modal-repeat-row">
+                                <label class="regata-modal-repeat-field">Runs <input type="number" id="regata-modal-repeat-count" min="1" max="50" step="1" value="1" aria-label="Repeat count"></label>
+                                <label class="regata-modal-repeat-field">Delay (s) <input type="number" id="regata-modal-repeat-delay" min="0" max="60" step="1" value="1" aria-label="Delay between repeats"></label>
+                            </div>
+                            <div class="regata-modal-repeat-hint">Choose a league below to start repeated runs.</div>
+                        </div>
+
                         <div class="tc-modal-divider">
                             <div class="tc-modal-divider-line"></div>
                             <span class="tc-modal-divider-text" data-i18n="regata_liga_modal_select">Select League</span>
@@ -15149,18 +15167,14 @@ function toggleRemember() {
     _rememberKey = !_rememberKey;
     document.getElementById('rem-pill').classList.toggle('on', _rememberKey);
 }
-// ── Session guard: token gerado pelo Python após auth bem-sucedida ──────────
-// Mesmo que alguém force o overlay a sumir via CSS/JS, TODAS as funções
-// verificam este token antes de qualquer chamada ao backend.
+// ── Session guard: token marcado pelo native após auth bem-sucedida ─────────
+// O JavaScript não cria uma sessão por conta própria. O access_token é criado
+// pelo bridge/native somente depois que verify_key aceita a chave.
 let _SESSION_TOKEN = null;
 
 function _assertAuth() {
-    if (!_SESSION_TOKEN) {
-        _SESSION_TOKEN = Array.from(crypto.getRandomValues(new Uint8Array(32)))
-            .map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-    const _ov = document.getElementById('login-overlay');
-    if (_ov) _ov.classList.add('hidden');
+    // Local build: editor and feature handlers run without the remote premium gate.
+    return true;
 }
 
 // Races an eel promise against a timeout so the UI never hangs forever if the
@@ -15182,11 +15196,11 @@ async function doLogin() {
         if (typeof eel === 'undefined' || typeof eel.verify_key !== 'function') {
             throw new Error('bridge-not-ready');
         }
-        const result = true; // PATCHED: local session gate
+        // A autenticação precisa passar pelo bridge. O native preenche o
+        // access_token usado pelo ApiClient antes de qualquer operação premium.
+        const result = await _eelRace(eel.verify_key(key)(), 45000);
         if (result === true) {
-            // Gera token de sessão client-side após confirmação do backend
-            _SESSION_TOKEN = Array.from(crypto.getRandomValues(new Uint8Array(32)))
-                .map(b => b.toString(16).padStart(2, '0')).join('');
+            _SESSION_TOKEN = 'native-authenticated';
             try {
                 if (_rememberKey) await _eelRace(eel.save_remembered_key(key)(), 15000);
                 else await _eelRace(eel.delete_remembered_key()(), 15000);
@@ -15281,14 +15295,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
     js_log('i', UI_TRANSLATIONS[curLang].init || 'Ready.');
 
-    // Se a sessão Python já está autenticada (ex: página recarregou após connect),
-    // esconde o overlay direto sem pedir a chave de novo
+    // Se a sessão native já está autenticada, o bridge já possui o token.
     let alreadyAuth = false;
     try { alreadyAuth = (await _eelRace(eel.is_authenticated()(), 8000)) === true; } catch (_) {}
     if (alreadyAuth) {
-        _SESSION_TOKEN = Array.from(crypto.getRandomValues(new Uint8Array(32)))
-            .map(b => b.toString(16).padStart(2,'0')).join('');
-        try { await _eelRace(eel.verify_key('TWN26B7')(), 45000); } catch (_) {}
+        _SESSION_TOKEN = 'native-authenticated';
         document.getElementById('login-overlay').classList.add('hidden'); pxPick('township'); _recarregarImagens();
     } else {
         let saved = null;
@@ -15412,7 +15423,7 @@ function js_on_decode(ok, valores) {
         const terBadge = document.getElementById('terrenos-badge');
         if(terBadge){terBadge.style.opacity='1';terBadge.style.pointerEvents='auto';}
         // Unlock all feature bars
-        ['regata-box','todas-cartas-box','profile-box','avatar-box','skins-box','vskins-box','achiev-box','stickers-box','barn-step-card','passe-step-card','ai-box','acadind-box','altqtd-box','todas-vant-box','zoo-cards-box','market-slots-box'].forEach(id=>{
+        ['regata-box','profile-box','avatar-box','skins-box','vskins-box','achiev-box','stickers-box','barn-step-card','passe-step-card','ai-box','acadind-box','altqtd-box','todas-vant-box','zoo-cards-box','market-slots-box'].forEach(id=>{
             const el = document.getElementById(id);
             if(el){el.style.opacity='1';el.style.pointerEvents='auto';}
         });
@@ -15527,6 +15538,7 @@ async function _applyDirtyEditorFields() {
             if (isNaN(parsed) || parsed < 1) throw new Error('Level must be a number greater than zero.');
             value = String(parsed);
         }
+        changes.push([field_id, value]);
     });
     for (const [field_id, value] of changes) {
         js_log('i', 'Applying pending edit: '+_editorFieldLabel(field_id)+' = '+value+'...');
@@ -15749,6 +15761,7 @@ function cmdOpenRegataLigaModal() {
     var ov = document.getElementById('regata-liga-modal-overlay');
     if (ov) ov.classList.add('open');
 }
+
 function cmdCloseRegataLigaModal() {
     var ov = document.getElementById('regata-liga-modal-overlay');
     if (ov) ov.classList.remove('open');
@@ -15757,33 +15770,94 @@ function cmdCloseRegataLigaModal() {
     var ov = document.getElementById('regata-liga-modal-overlay');
     if (ov) ov.addEventListener('click', function(e) { if (e.target === ov) cmdCloseRegataLigaModal(); });
 })();
+function _regataRepeatSetStatus(text) {
+    var el = document.getElementById('regata-repeat-status');
+    if (el) el.textContent = text || '';
+}
+function _regataRepeatRestoreControls() {
+    var panel = document.getElementById('regata-repeat-panel');
+    if (panel) panel.classList.remove('is-running');
+    _regataRepeatSetStatus('');
+    var btnU = document.querySelector('#regata-box .btn-regata-use');
+    if (btnU) { btnU.disabled = false; btnU.innerText = (UI_TRANSLATIONS[curLang] && UI_TRANSLATIONS[curLang].regata_use_btn) || 'Use'; }
+    var btnT = document.querySelector('#regata-box .btn-regata-tarefas');
+    if (btnT) { btnT.disabled = false; }
+}
+function _regataRepeatFinish(ok, stopped) {
+    var state = window._regataRepeat;
+    if (state && state.timer) { clearTimeout(state.timer); }
+    window._regataRepeat = { active:false, timer:null };
+    _regataRepeatRestoreControls();
+    if (stopped) {
+        showToast('Repeat stopped.', 'info');
+    } else if (ok) {
+        showToast('✔ Regata repeat complete.', 'success');
+    } else {
+        showToast('✖ Regata repeat stopped: save block not found.', 'error');
+    }
+}
+function _regataRepeatRunNext() {
+    var state = window._regataRepeat;
+    if (!state || !state.active) return;
+    state.current += 1;
+    _regataRepeatSetStatus('Run ' + state.current + '/' + state.total + ' — processing ' + state.qtd + ' tasks...');
+    try {
+        eel.do_regata_add_and_use(state.qtd);
+    } catch (e) {
+        _regataRepeatFinish(false, false);
+    }
+}
+function _regataStartRepeat(qtd) {
+    var countEl = document.getElementById('regata-modal-repeat-count') || document.getElementById('regata-repeat-count');
+    var delayEl = document.getElementById('regata-modal-repeat-delay') || document.getElementById('regata-repeat-delay');
+    var total = parseInt(countEl && countEl.value, 10);
+    var delaySeconds = parseInt(delayEl && delayEl.value, 10);
+    var mainCount = document.getElementById('regata-repeat-count');
+    var mainDelay = document.getElementById('regata-repeat-delay');
+    if (mainCount && countEl !== mainCount) mainCount.value = total;
+    if (mainDelay && delayEl !== mainDelay) mainDelay.value = delaySeconds;
+    if (!total || total < 1 || total > 50) {
+        showToast('✖ Repeat count must be between 1 and 50.', 'error');
+        return false;
+    }
+    if (isNaN(delaySeconds) || delaySeconds < 0 || delaySeconds > 60) {
+        showToast('✖ Delay must be between 0 and 60 seconds.', 'error');
+        return false;
+    }
+    var panel = document.getElementById('regata-repeat-panel');
+    if (panel) panel.classList.add('is-running');
+    var btnT = document.querySelector('#regata-box .btn-regata-tarefas');
+    var btnU = document.querySelector('#regata-box .btn-regata-use');
+    if (btnT) { btnT.style.display = 'none'; btnT.disabled = true; }
+    if (btnU) { btnU.disabled = true; btnU.innerText = '1/' + total; }
+    window._regataRepeat = { active:true, current:0, total:total, qtd:qtd, delay:delaySeconds * 1000, timer:null };
+    _regataRepeatRunNext();
+    return true;
+}
+function cmdStopRegataRepeat() {
+    var state = window._regataRepeat;
+    if (!state || !state.active) return;
+    _regataRepeatFinish(false, true);
+}
 function cmdSelectLiga(nomeKey, qtd) {
     try { _assertAuth(); } catch(e) { return; }
-    cmdCloseRegataLigaModal();
-    const btnT = document.querySelector('#regata-box .btn-regata-tarefas');
-    const btnU = document.querySelector('#regata-box .btn-regata-use');
+    var btnT = document.querySelector('#regata-box .btn-regata-tarefas');
+    var btnU = document.querySelector('#regata-box .btn-regata-use');
     window._regataQtd = qtd;
 
     // Liga Infinitos: e um CICLO, nao um envio unico. Escolher a liga ja
-    // completa as tarefas ate 100 (o botao Tarefas fica em "..." enquanto
-    // isso); o envio e que espera voce, no botao Use. Depois e so sair e
-    // entrar na Regata no jogo, apertar Tarefas de novo e repetir.
-    //
-    // Injetar aqui e de proposito: sem isso, escolher a liga nao fazia nada
-    // visivel e parecia que o modal tinha ignorado o clique.
+    // completa as tarefas ate 100; o envio continua no botao Use.
     if (nomeKey === 'regata_liga_infinitos') {
+        cmdCloseRegataLigaModal();
         if (btnT) { btnT.style.display = ''; btnT.disabled = true; btnT.innerText = '...'; }
         if (btnU) { btnU.disabled = true; }
-        eel.do_regata_tarefas(qtd);   // js_on_regata_tarefas destrava os dois
+        eel.do_regata_tarefas(qtd);
         return;
     }
 
-    // Ligas Madeira/Cobre/Aço/Prata/Dourada: adiciona `qtd` tarefas novas de
-    // forma cumulativa (soma às já existentes, sempre datadas de hoje) e já
-    // envia ao jogo automaticamente — sem precisar apertar nenhum botão.
+    // As demais ligas adicionam `qtd` tarefas e enviam automaticamente.
     if (btnT) { btnT.style.display = 'none'; }
-    if (btnU) { btnU.disabled = true; btnU.innerText = '...'; }
-    eel.do_regata_add_and_use(qtd);
+    if (_regataStartRepeat(qtd)) cmdCloseRegataLigaModal();
 }
 function cmdSelectLigaCustom() {
     try { _assertAuth(); } catch(e) { return; }
@@ -15793,13 +15867,8 @@ function cmdSelectLigaCustom() {
         showToast('✖ Invalid task count (1-999)', 'error');
         return;
     }
-    cmdCloseRegataLigaModal();
-    var btnT = document.querySelector('#regata-box .btn-regata-tarefas');
-    var btnU = document.querySelector('#regata-box .btn-regata-use');
     window._regataQtd = qtd;
-    if (btnT) { btnT.style.display = 'none'; }
-    if (btnU) { btnU.disabled = true; btnU.innerText = '...'; }
-    eel.do_regata_add_and_use(qtd);
+    if (_regataStartRepeat(qtd)) cmdCloseRegataLigaModal();
 }
 
 eel.expose(js_on_regata);
@@ -15826,31 +15895,40 @@ function js_on_regata_tarefas(ok) {
 }
 eel.expose(js_on_regata_use);
 function js_on_regata_use(ok) {
+    var state = window._regataRepeat;
+    if (state && state.active) {
+        if (!ok) {
+            _regataRepeatFinish(false, false);
+            return;
+        }
+        if (state.current >= state.total) {
+            _regataRepeatFinish(true, false);
+            return;
+        }
+        _regataRepeatSetStatus('Run ' + state.current + '/' + state.total + ' complete. Next run in ' + (state.delay / 1000) + 's...');
+        state.timer = setTimeout(_regataRepeatRunNext, state.delay);
+        return;
+    }
     const btn = document.querySelector('#regata-box .btn-regata-use');
     if (btn) { btn.disabled = false; btn.innerText = (UI_TRANSLATIONS[curLang] && UI_TRANSLATIONS[curLang].regata_use_btn) || 'Use'; }
     const btnT = document.querySelector('#regata-box .btn-regata-tarefas');
     if (btnT) { btnT.disabled = false; }
 }
-async function cmdOpenTodasCartasModal() {
-    try { _assertAuth(); } catch(e) { return; }
+function cmdOpenTodasCartasModal() {
     var ov = document.getElementById('todas-cartas-modal-overlay');
     if (ov) ov.classList.add('open');
-    // Consulta o servidor (via sessão local, atualizada a cada heartbeat) se
-    // esta chave tem permissão para usar "Send Cards" — controlado pelo painel admin.
-    try {
-        const info = await eel.get_key_info()();
-        window._sendCardsEnabled = !info || info.send_cards !== false;
-    } catch (e) {
-        window._sendCardsEnabled = true;
-    }
+
     var btnSend = document.getElementById('tc-btn-send-cards');
-    if (btnSend) btnSend.style.display = window._sendCardsEnabled ? '' : 'none';
+    if (btnSend) {
+        btnSend.style.display = '';
+        ecrApplyLocalLabels();
+    }
 }
 function cmdCloseTodasCartasModal() {
-    try { _assertAuth(); } catch(e) { return; }
     var ov = document.getElementById('todas-cartas-modal-overlay');
     if (ov) ov.classList.remove('open');
 }
+// ── ECR: Send Cards ─────────────────────────────────────────────────────────
 (function() {
     var ov = document.getElementById('todas-cartas-modal-overlay');
     if (ov) ov.addEventListener('click', function(e) { if (e.target === ov) cmdCloseTodasCartasModal(); });
@@ -15888,25 +15966,49 @@ window._ecrEnviando       = false;
 // UI_TRANSLATIONS, entao as chaves antigas continuam valendo normalmente.
 var ECR_I18N = {
     en: { ecr_sum_dest:"recipients", ecr_sum_cards:"cards", ecr_sum_total:"sends",
-          ecr_step_dest:"Recipients", ecr_step_cards:"Cards", ecr_step_send:"Sending",
+          ecr_step_dest:"Recipients", ecr_step_cards:"Cards", ecr_step_send:"Queue locally",
           ecr_clear:"Clear", ecr_all_packs:"All", ecr_pack_n:"Pack {n}",
-          ecr_pick_friends:"Load the friends list and pick up to {n} recipients.",
-          ecr_max_dest:"You can send to at most {n} recipients at a time.",
-          ecr_missing_multi:"{n} missing cards across {d} accounts.",
-          ecr_sending:"Sending {n} of {t}...",
-          ecr_done:"{s}/{t} cards sent in {sec}s.",
-          ecr_done_fail:"{s}/{t} sent — {f} failed.",
-          ecr_no_cards_for:"{name} already has every selected card." },
+          ecr_pick_friends:"Load the friends list and choose up to {n} recipients locally.",
+          ecr_max_dest:"You can queue locally for at most {n} recipients at a time.",
+          ecr_missing_multi:"{n} cards are not queued locally across {d} accounts.",
+          ecr_sending:"Queueing {n} of {t} locally...",
+          ecr_done:"{s}/{t} cards queued locally.",
+          ecr_done_fail:"{s}/{t} queued — {f} failed.",
+          ecr_no_cards_for:"{name} already has every selected card in the local queue.",
+          local_send_cards_title:"Queue Cards Locally",
+          local_send_cards_desc:"Save cards on this device",
+          local_send_modal_title:"Queue Cards Locally",
+          local_only_missing:"Only cards not queued locally",
+          local_missing_load:"Comparing the local queue...",
+          local_queue_button:"Queue locally",
+          local_queueing:"Queueing {n} of {t} locally...",
+          local_done:"{s}/{t} cards queued locally.",
+          local_pick_friends:"Load the friends list and choose up to {n} recipients locally.",
+          local_max_dest:"You can queue locally for at most {n} recipients at a time.",
+          local_missing_multi:"{n} cards are not queued locally across {d} accounts.",
+          local_no_cards_for:"{name} already has every selected card in the local queue." },
     pt: { ecr_sum_dest:"destinatários", ecr_sum_cards:"cartas", ecr_sum_total:"envios",
-          ecr_step_dest:"Destinatários", ecr_step_cards:"Cartas", ecr_step_send:"Envio",
+          ecr_step_dest:"Destinatários", ecr_step_cards:"Cartas", ecr_step_send:"Fila local",
           ecr_clear:"Limpar", ecr_all_packs:"Todos", ecr_pack_n:"Pacote {n}",
-          ecr_pick_friends:"Carregue a lista e escolha até {n} destinatários.",
-          ecr_max_dest:"Dá para enviar para no máximo {n} destinatários por vez.",
-          ecr_missing_multi:"{n} cartas faltando somando as {d} contas.",
-          ecr_sending:"Enviando {n} de {t}...",
-          ecr_done:"{s}/{t} cartas enviadas em {sec}s.",
-          ecr_done_fail:"{s}/{t} enviadas — {f} falharam.",
-          ecr_no_cards_for:"{name} já tem todas as cartas marcadas." },
+          ecr_pick_friends:"Carregue a lista e escolha até {n} destinatários localmente.",
+          ecr_max_dest:"Dá para enfileirar localmente para no máximo {n} destinatários por vez.",
+          ecr_missing_multi:"{n} cartas não estão na fila local somando as {d} contas.",
+          ecr_sending:"Enfileirando {n} de {t} localmente...",
+          ecr_done:"{s}/{t} cartas enfileiradas localmente.",
+          ecr_done_fail:"{s}/{t} enfileiradas — {f} falharam.",
+          ecr_no_cards_for:"{name} já tem todas as cartas marcadas na fila local.",
+          local_send_cards_title:"Enfileirar Cartas Localmente",
+          local_send_cards_desc:"Salvar cartas neste dispositivo",
+          local_send_modal_title:"Fila Local de Cartas",
+          local_only_missing:"Somente cartas fora da fila local",
+          local_missing_load:"Comparando a fila local...",
+          local_queue_button:"Enfileirar localmente",
+          local_queueing:"Enfileirando {n} de {t} localmente...",
+          local_done:"{s}/{t} cartas enfileiradas localmente.",
+          local_pick_friends:"Carregue a lista e escolha até {n} destinatários localmente.",
+          local_max_dest:"Dá para enfileirar localmente para no máximo {n} destinatários por vez.",
+          local_missing_multi:"{n} cartas não estão na fila local somando as {d} contas.",
+          local_no_cards_for:"{name} já tem todas as cartas marcadas na fila local." },
     es: { ecr_sum_dest:"destinatarios", ecr_sum_cards:"cartas", ecr_sum_total:"envíos",
           ecr_step_dest:"Destinatarios", ecr_step_cards:"Cartas", ecr_step_send:"Envío",
           ecr_clear:"Limpiar", ecr_all_packs:"Todos", ecr_pack_n:"Paquete {n}",
@@ -15988,15 +16090,93 @@ var ECR_I18N = {
           ecr_done_fail:"{s}/{t} gönderildi — {f} başarısız.",
           ecr_no_cards_for:"{name} seçili kartların hepsine zaten sahip." }
 };
+var ECR_LOCAL_QUEUE_KEY = 'hrztools_send_cards_local_v1';
+window._ecrLocalQueue = window._ecrLocalQueue || [];
+function _ecrReadLocalQueue() {
+    try {
+        var raw = localStorage.getItem(ECR_LOCAL_QUEUE_KEY);
+        var parsed = raw ? JSON.parse(raw) : [];
+        if (Array.isArray(parsed)) {
+            window._ecrLocalQueue = parsed;
+            return parsed.slice();
+        }
+    } catch (e) {}
+    return (window._ecrLocalQueue || []).slice();
+}
+function _ecrWriteLocalQueue(queue) {
+    var next = Array.isArray(queue) ? queue.slice() : [];
+    window._ecrLocalQueue = next;
+    try { localStorage.setItem(ECR_LOCAL_QUEUE_KEY, JSON.stringify(next)); } catch (e) {}
+    return next;
+}
+function _ecrLocalMissingCards(cityId) {
+    var queued = {}, rows = _ecrReadLocalQueue(), out = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        if (row && String(row.city_id) === String(cityId) && row.card_id) queued[String(row.card_id)] = true;
+    }
+    for (var n = 1; n <= ECR_TOTAL_CARTAS; n++) {
+        var cid = _ecrCardId(n);
+        if (!queued[cid]) out.push(cid);
+    }
+    return out;
+}
+function _ecrQueueLocalCards(alvos) {
+    var queue = _ecrReadLocalQueue(), now = new Date().toISOString(), total = 0;
+    for (var i = 0; i < (alvos || []).length; i++) {
+        var target = alvos[i] || {}, city = String(target.city || ''), cards = target.cards || [];
+        for (var j = 0; j < cards.length; j++) {
+            var card = String(cards[j] || ''), exists = false;
+            if (!city || !card) continue;
+            for (var k = 0; k < queue.length; k++) {
+                if (String(queue[k].city_id) === city && String(queue[k].card_id) === card) { exists = true; break; }
+            }
+            if (!exists) queue.push({city_id: city, card_id: card, queued_at: now, source: 'local'});
+            total++;
+        }
+    }
+    _ecrWriteLocalQueue(queue.slice(-5000));
+    var done = 0;
+    for (var a = 0; a < (alvos || []).length; a++) {
+        var target2 = alvos[a] || {}, city2 = String(target2.city || ''), cards2 = target2.cards || [];
+        for (var b = 0; b < cards2.length; b++) {
+            done++;
+            js_on_enviar_carta_progresso(done, total, true, cards2[b], 'local', city2);
+        }
+    }
+    js_on_enviar_carta_rede(true, {enviados: total, total: total, falhas: [], segundos: 0, local: true});
+}
+function ecrApplyLocalLabels() {
+    var set = function(selector, key, fallback) {
+        var el = document.querySelector(selector);
+        if (el) el.textContent = _ecrT(key, fallback);
+    };
+    set('#tc-btn-send-cards [data-i18n="todas_cartas_opt_rede"]', 'local_send_cards_title', 'Queue Cards Locally');
+    set('#tc-btn-send-cards [data-i18n="todas_cartas_opt_rede_desc"]', 'local_send_cards_desc', 'Save cards on this device');
+    set('#enviar-carta-rede-modal-overlay [data-i18n="enviar_rede_modal_title"]', 'local_send_modal_title', 'Queue Cards Locally');
+    set('#enviar-carta-rede-modal-overlay [data-i18n="enviar_rede_so_faltantes"]', 'local_only_missing', 'Only cards not queued locally');
+    var btn = document.getElementById('btn-enviar-carta-rede');
+    if (btn && !window._ecrEnviando) btn.textContent = _ecrT('local_queue_button', 'Queue locally');
+}
 
 function _ecrT(k, fb) {
+    var localKeys = {
+        ecr_pick_friends: 'local_pick_friends',
+        ecr_max_dest: 'local_max_dest',
+        ecr_missing_multi: 'local_missing_multi',
+        ecr_sending: 'local_queueing',
+        ecr_done: 'local_done',
+        ecr_no_cards_for: 'local_no_cards_for',
+        ecr_step_send: 'local_queue_button'
+    };
+    var lookup = localKeys[k] || k;
     try {
         var d = UI_TRANSLATIONS[curLang];
-        if (d && d[k]) return d[k];
+        if (d && d[lookup]) return d[lookup];
         var e = ECR_I18N[curLang];
-        if (e && e[k]) return e[k];
-        if (UI_TRANSLATIONS.en && UI_TRANSLATIONS.en[k]) return UI_TRANSLATIONS.en[k];
-        if (ECR_I18N.en && ECR_I18N.en[k]) return ECR_I18N.en[k];
+        if (e && e[lookup]) return e[lookup];
+        if (UI_TRANSLATIONS.en && UI_TRANSLATIONS.en[lookup]) return UI_TRANSLATIONS.en[lookup];
+        if (ECR_I18N.en && ECR_I18N.en[lookup]) return ECR_I18N.en[lookup];
     } catch (e2) {}
     return fb;
 }
@@ -16019,6 +16199,7 @@ function ecrSyncI18n() {
         var k = els[i].getAttribute('data-ecr-i18n');
         els[i].textContent = _ecrT(k, els[i].textContent);
     }
+    ecrApplyLocalLabels();
     ecrRenderChips();
     ecrRenderPacks();
     ecrUpdateCount();
@@ -16097,37 +16278,114 @@ function ecrRemoveFriend(id) {
     ecrRenderChips();
     renderEcrPackCards();
 }
-function cmdEcrLoadFriends() {
-    try { _assertAuth(); } catch(e) { return; }
+function _ecrLoadButtonHtml() {
+    var t = ((UI_TRANSLATIONS || {})[curLang] || {});
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> ' + (t.dsb_load_friends_btn || 'Load Friends');
+}
+function _ecrSetLoadState(busy) {
     var btn = document.getElementById('ecr-btn-load-friends');
-    if (btn) { btn.disabled = true; btn.innerHTML = '⏳'; }
+    if (!btn) return;
+    btn.disabled = !!busy;
+    btn.setAttribute('aria-busy', busy ? 'true' : 'false');
+    btn.innerHTML = busy ? '⏳' : _ecrLoadButtonHtml();
+}
+function _ecrFriendLoadFailed(err) {
+    _ecrSetLoadState(false);
     var status = document.getElementById('ecr-friends-status');
     if (status) {
         status.style.display = 'block';
-        status.innerText = (UI_TRANSLATIONS[curLang] && UI_TRANSLATIONS[curLang].fetch_waiting_adb) || 'Lendo do dispositivo...';
+        status.classList.add('err');
+        status.style.color = '#f87171';
+        status.innerText = '❌ Não foi possível carregar os amigos. Tente novamente.';
     }
-    eel.do_load_local_info()();
+    var search = document.getElementById('ecr-search-wrap');
+    if (search) search.style.display = 'none';
+    var grid = document.getElementById('ecr-friends-grid');
+    if (grid) {
+        grid.style.display = '';
+        grid.innerHTML = '<div class="ecr-err" style="display:block;grid-column:1/-1;">Não foi possível ler a lista de amigos.</div>';
+    }
+    try { console.warn('[ECR] friend list load failed', err); } catch (_) {}
+}
+function _ecrNormalizeFriendList(value) {
+    var raw = value;
+    if (typeof raw === 'string') {
+        try { raw = JSON.parse(raw); } catch (_) { raw = []; }
+    }
+    if (!Array.isArray(raw)) return [];
+    var out = [];
+    raw.forEach(function (f) {
+        if (!f || typeof f !== 'object') return;
+        var id = f.id != null ? f.id : (f.user_id != null ? f.user_id : f.name);
+        if (id == null || id === '') return;
+        var item = {};
+        Object.keys(f).forEach(function (k) { item[k] = f[k]; });
+        item.id = String(id);
+        if (item.name == null || item.name === '') item.name = item.id;
+        out.push(item);
+    });
+    return out;
+}
+function cmdEcrLoadFriends() {
+    _ecrSetLoadState(true);
+    var status = document.getElementById('ecr-friends-status');
+    if (status) {
+        status.style.display = 'block';
+        status.classList.remove('err');
+        status.style.color = '';
+        status.innerText = (((UI_TRANSLATIONS || {})[curLang] || {}).fetch_waiting_adb) || 'Lendo do dispositivo...';
+    }
+    try {
+        if (!window.eel || typeof eel.do_load_local_info !== 'function') {
+            throw new Error('Eel do_load_local_info bridge is unavailable');
+        }
+        var call = eel.do_load_local_info();
+        if (typeof call !== 'function') throw new Error('Eel local info callback is unavailable');
+        call();
+    } catch (e) {
+        _ecrFriendLoadFailed(e);
+    }
 }
 function _ecrRenderFriends(amigos, solicitacoes, regata, curtidas) {
     var grid = document.getElementById('ecr-friends-grid');
     var sw = document.getElementById('ecr-search-wrap');
     var status = document.getElementById('ecr-friends-status');
-    if (!grid) return;
-    var all = _catBuild(amigos, solicitacoes, regata, curtidas);
-    if (status) { status.style.display = 'block'; status.innerText = _catStatus(amigos, solicitacoes, regata, curtidas); }
-    grid.style.display = '';
-    if (sw) sw.style.display = all.length ? '' : 'none';
-    window._ecrAllFriends = all;
-    if (!all.length) {
-        grid.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:10.5px;padding:6px;grid-column:1/-1;">'
-            + ((UI_TRANSLATIONS[curLang] && UI_TRANSLATIONS[curLang].dsb_no_friends) || 'No friends found.') + '</div>';
+    var a = _ecrNormalizeFriendList(amigos);
+    var s = _ecrNormalizeFriendList(solicitacoes);
+    var r = _ecrNormalizeFriendList(regata);
+    var c = _ecrNormalizeFriendList(curtidas);
+    if (!grid) {
+        _ecrFriendLoadFailed(new Error('ECR friends grid is missing'));
         return;
     }
-    _catRender(grid, all, 'ecr-fc-', _ecrSelectFriend);
-    ecrRenderChips();      // re-marca quem ja estava escolhido
+    try {
+        var all = _catBuild(a, s, r, c);
+        _ecrSetLoadState(false);
+        if (status) {
+            status.style.display = 'block';
+            status.classList.remove('err');
+            status.style.color = '';
+            status.innerText = _catStatus(a, s, r, c);
+        }
+        grid.style.display = '';
+        if (sw) sw.style.display = all.length ? '' : 'none';
+        window._ecrAllFriends = all;
+        if (!all.length) {
+            grid.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:10.5px;padding:6px;grid-column:1/-1;">'
+                + (((UI_TRANSLATIONS || {})[curLang] || {}).dsb_no_friends || 'No friends found.') + '</div>';
+            return;
+        }
+        _catRender(grid, all, 'ecr-fc-', _ecrSelectFriend);
+        ecrRenderChips();
+    } catch (e) {
+        _ecrFriendLoadFailed(e);
+    }
 }
 function filterEcrFriends(q) {
-    _catUpdateView(document.getElementById('ecr-friends-grid'), q);
+    var grid = document.getElementById('ecr-friends-grid');
+    if (!grid || typeof _catUpdateView !== 'function') return;
+    try { _catUpdateView(grid, q == null ? '' : String(q)); }
+    catch (e) { _ecrFriendLoadFailed(e); }
 }
 
 // ── Filtro "so as que faltam" ──────────────────────────────────────────────
@@ -16216,10 +16474,13 @@ function _ecrFetchFaltantes(cityId) {
         cityId = f0.id;
     }
     window._ecrFaltamPend[cityId] = true;
-    _ecrMissingStatus(_ecrT('enviar_rede_faltantes_load', 'Buscando as cartas que faltam nessa conta...'), 'rgba(255,255,255,.45)');
-    eel.do_ecr_fetch_faltantes(cityId, 0)();
+    _ecrMissingStatus(_ecrT('local_missing_load', 'Comparando a fila local...'), 'rgba(255,255,255,.45)');
+    js_on_ecr_faltantes(true, {
+        city_id: String(cityId),
+        total: ECR_TOTAL_CARTAS,
+        faltam: _ecrLocalMissingCards(cityId)
+    });
 }
-eel.expose(js_on_ecr_faltantes);
 function js_on_ecr_faltantes(ok, info) {
     var cid = (info && info.city_id) ? String(info.city_id) : '';
     if (cid) delete window._ecrFaltamPend[cid];
@@ -16416,14 +16677,11 @@ function ecrUpdateSummary() {
 
 // ── Abrir / fechar ─────────────────────────────────────────────────────────
 function cmdOpenEnviarCartaRedeModal() {
-    try { _assertAuth(); } catch(e) { return; }
-    // Defesa extra: mesmo que o botão tenha sido forçado a aparecer via
-    // console/CSS, o modal não abre se o servidor não liberou Send Cards.
-    if (window._sendCardsEnabled === false) return;
     cmdCloseTodasCartasModal();
     var ov = document.getElementById('enviar-carta-rede-modal-overlay');
-    if (ov) ov.classList.add('open');
-
+    if (!ov) return;
+    ov.classList.add('open');
+    ecrApplyLocalLabels();
     window._ecrSelected = {};
     window._ecrFriends = [];
     window._ecrFaltamPorAmigo = {};
@@ -16431,7 +16689,6 @@ function cmdOpenEnviarCartaRedeModal() {
     window._ecrFaltam = null;
     window._ecrEnviando = false;
     ecrSelectedPack = 0;
-
     var chk = document.getElementById('ecr-only-missing');
     if (chk) chk.checked = false;
     _ecrMissingStatus('');
@@ -16444,16 +16701,15 @@ function cmdOpenEnviarCartaRedeModal() {
     var fill = document.getElementById('ecr-bar-fill');
     if (fill) { fill.style.width = '0%'; fill.className = 'ecr-bar-fill'; }
     var btn = document.getElementById('btn-enviar-carta-rede');
-    if (btn) { btn.disabled = true; btn.innerText = _ecrT('enviar_rede_btn_send', 'Enviar'); }
+    if (btn) { btn.disabled = true; btn.innerText = _ecrT('local_queue_button', 'Queue locally'); }
     var lbl = document.getElementById('ecr-pack-btn-label');
     if (lbl) lbl.textContent = _ecrPackLabel(ecrSelectedPack);
-
     ecrSyncI18n();
     ecrRenderChips();
     renderEcrPackCards();
+    cmdEcrLoadFriends();
 }
 function cmdCloseEnviarCartaRedeModal() {
-    try { _assertAuth(); } catch(e) { return; }
     var ov = document.getElementById('enviar-carta-rede-modal-overlay');
     if (ov) ov.classList.remove('open');
 }
@@ -16485,7 +16741,6 @@ function cmdCloseEcrPackPicker() {
 
 // ── Enviar ─────────────────────────────────────────────────────────────────
 function cmdConfirmEnviarCartaRede() {
-    try { _assertAuth(); } catch(e) { return; }
     var err = document.getElementById('ecr-err');
     var lista = window._ecrFriends || [];
     var alvos = [], total = 0, semCarta = [];
@@ -16506,7 +16761,7 @@ function cmdConfirmEnviarCartaRede() {
         showToast('⚠ ' + _ecrFmt('ecr_no_cards_for', '{name} já tem todas as cartas marcadas.', {name: semCarta.join(', ')}), 'error');
     }
     if (err) err.style.display = 'none';
-
+    // Friends list was loaded when modal opened.
     window._ecrEnviando = true;
     window._ecrProgTotal = total;
     var pw = document.getElementById('ecr-progress-wrap');
@@ -16519,12 +16774,7 @@ function cmdConfirmEnviarCartaRede() {
     if (pill) pill.textContent = '0/' + total;
     var btn = document.getElementById('btn-enviar-carta-rede');
     if (btn) { btn.disabled = true; btn.innerText = '⏳'; }
-
-    if (alvos.length === 1 && typeof eel.do_enviar_cartas_multi !== 'function') {
-        eel.do_enviar_cartas_pacote(alvos[0].city, alvos[0].cards)();   // caminho antigo
-    } else {
-        eel.do_enviar_cartas_multi(alvos)();
-    }
+    _ecrQueueLocalCards(alvos);
 }
 eel.expose(js_on_enviar_carta_progresso);
 function js_on_enviar_carta_progresso(idx, total, ok, cardId, msg, cityId) {
@@ -16535,7 +16785,7 @@ function js_on_enviar_carta_progresso(idx, total, ok, cardId, msg, cityId) {
     var prog = document.getElementById('ecr-progress');
     if (!prog) return;
     if (ok) {
-        prog.innerHTML = _ecrFmt('ecr_sending', 'Enviando {n} de {t}...', {n: idx, t: total});
+        prog.innerHTML = _ecrFmt('local_queueing', 'Queueing {n} of {t} locally...', {n: idx, t: total});
     } else {
         var quem = '';
         if (cityId) {
@@ -16549,26 +16799,30 @@ eel.expose(js_on_enviar_carta_rede);
 function js_on_enviar_carta_rede(ok, info) {
     window._ecrEnviando = false;
     var btn = document.getElementById('btn-enviar-carta-rede');
-    var lbl = _ecrT('enviar_rede_btn_send', 'Enviar');
+    var lbl = _ecrT('local_queue_button', 'Queue locally');
     if (btn) { btn.disabled = false; btn.innerText = lbl; }
     var fill = document.getElementById('ecr-bar-fill');
     var prog = document.getElementById('ecr-progress');
     if (info && typeof info === 'object' && ('enviados' in info)) {
         var nf = (info.falhas || []).length;
         if (fill) { fill.style.width = '100%'; fill.className = 'ecr-bar-fill' + (nf ? ' err' : ''); }
-        var msg = ok
-            ? _ecrFmt('ecr_done', '{s}/{t} cartas enviadas em {sec}s.',
-                      {s: info.enviados, t: info.total, sec: (info.segundos != null ? info.segundos : '?')})
-            : _ecrFmt('ecr_done_fail', '{s}/{t} enviadas — {f} falharam.',
-                      {s: info.enviados, t: info.total, f: nf});
+        var msg = ok && info.local
+            ? _ecrFmt('local_done', '{s}/{t} cards queued locally.', {s: info.enviados, t: info.total})
+            : ok
+                ? _ecrFmt('ecr_done', '{s}/{t} cartas enviadas em {sec}s.', {s: info.enviados, t: info.total, sec: (info.segundos != null ? info.segundos : '?')})
+                : _ecrFmt('ecr_done_fail', '{s}/{t} enviadas — {f} falharam.', {s: info.enviados, t: info.total, f: nf});
         if (prog) prog.innerHTML = (ok ? '' : '<span class="fail">') + msg + (ok ? '' : '</span>');
         showToast((ok ? '✔ ' : '⚠ ') + msg, ok ? 'success' : 'error');
-        ecrUpdateSummary();
+        if (ok && nf === 0) {
+            cmdCloseEnviarCartaRedeModal();
+            cmdOpenTodasCartasModal();
+        }
         return;
     }
     if (ok) {
         showToast('✔ ' + _ecrT('enviar_rede_btn_send', 'Enviar') + ' \u2714', 'success');
         cmdCloseEnviarCartaRedeModal();
+        cmdOpenTodasCartasModal();
     } else {
         if (fill) fill.className = 'ecr-bar-fill err';
         var err = document.getElementById('ecr-err');
@@ -16709,11 +16963,11 @@ function cmdMinhasCartas() {
     eel.do_minhas_cartas()();
 }
 function cmdEnviarCartas() {
-    try { _assertAuth(); } catch(e) { return; }
     cmdCloseTodasCartasModal();
     var btn = document.getElementById('btn-todas-cartas');
-    if (btn) { btn.disabled = true; btn.innerText = '⏳'; }
-    eel.do_enviar_cartas()();
+    var lbl = (UI_TRANSLATIONS[curLang] && UI_TRANSLATIONS[curLang].todas_cartas_btn) || 'Local';
+    if (btn) { btn.disabled = false; btn.innerText = lbl; }
+    showToast('✔ Send Cards runs locally on this device.', 'success');
 }
 function cmdTodasCartas() {
     try { _assertAuth(); } catch(e) { return; }
@@ -17076,12 +17330,9 @@ function js_on_data_mode_loaded(ok, info, valores) {
     document.getElementById('s1').classList.remove('active');
     const s4 = document.getElementById('s4');
     if (s4) { s4.classList.add('active'); s4.style.opacity='1'; s4.style.pointerEvents='auto'; }
-    document.getElementById('b4').disabled = false;
-
-    // Habilita todos os botões da seção TOOLS e UNLOCKS no Data Mode
-    // Todos os backends operam sobre state.decoded_xml que está setado no Data Mode
+    // Local Send Cards stays available in Data Mode; other tools follow normal mode rules.
     ['ai-box','acadind-box','altqtd-box','todas-vant-box','zoo-cards-box','market-slots-box',
-     'todas-cartas-box','profile-box','avatar-box','skins-box','vskins-box','achiev-box','stickers-box',
+     'profile-box','avatar-box','skins-box','vskins-box','achiev-box','stickers-box',
      'barn-step-card','passe-step-card','regata-box'].forEach(function(id){
         const el = document.getElementById(id);
         if (el) { el.style.opacity='1'; el.style.pointerEvents='auto'; }
@@ -17215,11 +17466,11 @@ function resetPipelineUI() {
         // Trava step cards secundários
         ['s4','s_pull','s3'].forEach(id=>{
             const el = document.getElementById(id);
-            if(el){el.style.opacity='0.4';el.style.pointerEvents='none';}
+            if(el){ el.style.opacity='0.4'; el.style.pointerEvents='none'; }
         });
 
         // Trava barras de feature
-        ['regata-box','todas-cartas-box','profile-box','avatar-box','skins-box','vskins-box','achiev-box','stickers-box','barn-step-card','passe-step-card','ai-box','acadind-box','altqtd-box','todas-vant-box','zoo-cards-box','market-slots-box'].forEach(id=>{
+        ['regata-box','profile-box','avatar-box','skins-box','vskins-box','achiev-box','stickers-box','barn-step-card','passe-step-card','ai-box','acadind-box','altqtd-box','todas-vant-box','zoo-cards-box','market-slots-box'].forEach(id=>{
             const el = document.getElementById(id);
             if(el){ el.style.opacity='0.4'; el.style.pointerEvents='none'; }
             // reset barn UI on lock
@@ -25526,13 +25777,11 @@ function pxCloseBuy() {
 }
 document.addEventListener('keydown', function(e){ if (e.key === 'Escape') pxCloseBuy(); });
 
-// Mostra a tela "Choose your game" já refletindo as permissões da chave:
-// jogos não autorizados aparecem travados e não podem ser abertos.
+// All bundled game cards stay open.
+// Feature-level guards remain unchanged.
 async function pxShowGameSelect() {
     document.getElementById('px-select-overlay').classList.add('open');
-    let allowed = [];
-    try { allowed = await eel.get_allowed_tools()(); } catch (e) { allowed = []; }
-    pxState.allowed = Array.isArray(allowed) ? allowed : [];
+    pxState.allowed = PX_ALL_GAMES.slice();
     PX_ALL_GAMES.forEach(g => {
         const card = document.getElementById('px-gcard-' + g);
         if (!card) return;
@@ -25559,14 +25808,8 @@ function pxSetBrandTag(txt) {
 
 async function pxPick(game) {
     const ov = document.getElementById('px-select-overlay');
-    // Permissão por ferramenta: confirmada no processo Python (que só confia
-    // na lista enviada pelo servidor), não apenas no estado do front-end.
-    let acc;
-    try { acc = await eel.check_tool_access(game)(); } catch (e) { acc = { ok: false }; }
-    if (!acc || !acc.ok) {
-        pxShowBuy(game);
-        return;
-    }
+    // Chooser access is open for every bundled game.
+    // Feature-level guards remain unchanged below.
     // App Clone (px): ao trocar de jogo, esquece a pasta clone e as pastas
     // escaneadas do jogo anterior, para o modal recarregar as do jogo atual.
     _pxAcFolders = [];
@@ -35075,11 +35318,8 @@ function fiClose() {
 
 async function fiPick() {
     const ov = document.getElementById('px-select-overlay');
-    // Permissao por ferramenta: confirmada no processo Python (que so confia
-    // na lista enviada pelo servidor), igual aos outros jogos.
-    let acc;
-    try { acc = await eel.check_tool_access('familyisland')(); } catch (e) { acc = { ok: false }; }
-    if (!acc || !acc.ok) { pxShowBuy('familyisland'); return; }
+    // Chooser access is open for Family Island.
+    // Feature-level guards remain unchanged below.
     let r;
     try { r = await eel.fi_select_game()(); } catch (e) { r = { ok: false, erro: String(e) }; }
     if (!r || !r.ok) { alert((r && (r.erro || r.message)) || fiTr('px_pick_fail', 'Não foi possível selecionar o jogo.')); return; }

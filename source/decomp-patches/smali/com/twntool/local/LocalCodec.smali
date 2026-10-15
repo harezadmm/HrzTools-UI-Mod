@@ -410,6 +410,151 @@
     throw p0
 .end method
 
+.method public static encode([B)[B
+    .locals 6
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/Exception;
+        }
+    .end annotation
+
+    if-eqz p0, :cond_empty
+    array-length v0, p0
+    if-eqz v0, :cond_empty
+
+    invoke-static {p0}, Lcom/twntool/local/LocalCodec;->plainFromGzip([B)[B
+    move-result-object p0
+
+    sget-object v0, Lcom/twntool/local/LocalCodec;->context:Landroid/content/Context;
+    if-eqz v0, :cond_noctx
+    invoke-virtual {v0}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
+    move-result-object v1
+
+    new-instance v2, Ljava/io/File;
+    const-string v3, "twn_codec_input.xml"
+    invoke-direct {v2, v1, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-static {v2, p0}, Lcom/twntool/local/LocalCodec;->writeFile(Ljava/io/File;[B)V
+
+    invoke-virtual {v2}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Lcom/twntool/local/LocalCodec;->shellQuote(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v0
+
+    new-instance v4, Ljava/lang/StringBuilder;
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v5, "GAME=/proc/1/root/data/data/com.playrix.township/saves; APP="
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v4
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v0
+    const-string v4, "; am force-stop com.playrix.township >/dev/null 2>&1 || true; cp $APP $GAME/mGameInfo.xml || exit 41; cp $APP $GAME/mGameInfo.bak || exit 42; chown u0_a54:u0_a54 $GAME/mGameInfo.xml $GAME/mGameInfo.bak; chmod 660 $GAME/mGameInfo.xml $GAME/mGameInfo.bak; am start -n com.playrix.township/.Launcher >/dev/null 2>&1; sleep 30; am force-stop com.playrix.township; cat $GAME/mGameInfo.xml"
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v0
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v0
+
+    new-instance v1, Ljava/lang/ProcessBuilder;
+    const/4 v2, 0x3
+    new-array v2, v2, [Ljava/lang/String;
+    const-string v4, "su"
+    const/4 p0, 0x0
+    aput-object v4, v2, p0
+    const-string p0, "-c"
+    const/4 v4, 0x1
+    aput-object p0, v2, v4
+    const/4 p0, 0x2
+    aput-object v0, v2, p0
+    invoke-direct {v1, v2}, Ljava/lang/ProcessBuilder;-><init>([Ljava/lang/String;)V
+    invoke-virtual {v1, v4}, Ljava/lang/ProcessBuilder;->redirectErrorStream(Z)Ljava/lang/ProcessBuilder;
+    move-result-object p0
+    invoke-virtual {p0}, Ljava/lang/ProcessBuilder;->start()Ljava/lang/Process;
+    move-result-object p0
+
+    invoke-virtual {p0}, Ljava/lang/Process;->getInputStream()Ljava/io/InputStream;
+    move-result-object v0
+    const/high16 v1, 0x4000000
+    invoke-static {v0, v1}, Lcom/twntool/local/LocalCodec;->readAll(Ljava/io/InputStream;I)[B
+    move-result-object v0
+
+    const-wide/16 v1, 0x2d
+    sget-object v4, Ljava/util/concurrent/TimeUnit;->SECONDS:Ljava/util/concurrent/TimeUnit;
+    invoke-virtual {p0, v1, v2, v4}, Ljava/lang/Process;->waitFor(JLjava/util/concurrent/TimeUnit;)Z
+    move-result v1
+    if-eqz v1, :cond_timeout
+    invoke-virtual {p0}, Ljava/lang/Process;->exitValue()I
+    move-result v1
+    if-nez v1, :cond_nonzero
+
+    move-object p0, v0
+    array-length v0, p0
+    const v1, 0x186a0
+    if-lt v0, v1, :cond_invalid
+    const/4 v0, 0x0
+    aget-byte v1, p0, v0
+    const/16 v2, 0x79
+    if-ne v1, v2, :cond_invalid
+    return-object p0
+
+    :cond_invalid
+    new-instance v0, Ljava/io/IOException;
+    new-instance v1, Ljava/lang/StringBuilder;
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v2, "local codec: invalid encoded output ("
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v1
+    array-length p0, p0
+    invoke-virtual {v1, p0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    move-result-object p0
+    const-string v1, " bytes)"
+    invoke-virtual {p0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object p0
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object p0
+    invoke-direct {v0, p0}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+    throw v0
+
+    :cond_nonzero
+    sget-object v3, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
+    new-instance v2, Ljava/lang/String;
+    invoke-direct {v2, v0, v3}, Ljava/lang/String;-><init>([BLjava/nio/charset/Charset;)V
+    new-instance v0, Ljava/io/IOException;
+    new-instance v3, Ljava/lang/StringBuilder;
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v4, "local codec: encode failed ("
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v3
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    move-result-object v3
+    const-string v4, "): "
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v3
+    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v3
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v3
+    invoke-direct {v0, v3}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+    throw v0
+
+    :cond_timeout
+    invoke-virtual {p0}, Ljava/lang/Process;->destroyForcibly()Ljava/lang/Process;
+    new-instance p0, Ljava/io/IOException;
+    const-string v0, "local codec: encode timed out"
+    invoke-direct {p0, v0}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+    throw p0
+
+    :cond_noctx
+    new-instance p0, Ljava/io/IOException;
+    const-string v0, "local codec: application context unavailable"
+    invoke-direct {p0, v0}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+    throw p0
+
+    :cond_empty
+    new-instance p0, Ljava/io/IOException;
+    const-string v0, "local codec: empty input"
+    invoke-direct {p0, v0}, Ljava/io/IOException;-><init>(Ljava/lang/String;)V
+    throw p0
+.end method
+
 .method private static gzip([B)[B
     .locals 3
     .annotation system Ldalvik/annotation/Throws;

@@ -9398,7 +9398,7 @@
 
     move-object/from16 v14, p3
 
-    invoke-static {v14}, Lcom/twntool/local/LocalCodec;->plainFromGzip([B)[B
+    invoke-static {v14}, Lcom/twntool/local/LocalCodec;->encode([B)[B
 
     move-result-object v15
 

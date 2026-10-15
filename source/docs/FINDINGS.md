@@ -208,8 +208,35 @@ direction only; encode still requires a codec.
 
 ## 9. OPEN QUESTIONS
 
-1. Is the decoded Township save present intact in a single memory buffer? (fragments observed separately)
+1. ~~Is the decoded Township save present intact in a single memory buffer?~~ **RESOLVED (CP-021/CP-026):** Yes — Frida hook on libgame.so `0x73c4b01` yields complete plaintext XML (1,879,939 B) as a single buffer. Write-back encode proven: game accepts plaintext at `mGameInfo.xml`, re-encrypts to `0x79` on next save cycle.
 2. Does the Township codec also apply to Gardenscapes / Homescapes / Fishdom?
 3. Is the cipher keyed per account? (verify against two accounts)
 4. ~~Keystore password for `twn-key.jks`?~~ **RESOLVED:** pass `${KEYSTORE_PASSWORD}`, alias `twn`
    (from `_work/UI_CUSTOMIZATION_GUIDE.md`)
+
+## 10. EDIT PERSISTENCE — CONFIRMED FIELD OWNERSHIP (CP-026, 2026-10-14)
+
+Full roundtrip tested: decode → edit → write-back encode → launch → reload → re-decode.
+Two edits applied simultaneously to different authority domains. Both persisted.
+
+| Field | Before | After roundtrip | Ownership | Notes |
+|---|---|---|---|---|
+| Building `i` (x-pos) | 23 | 28 | **Client-owned ✓** | Layout field. Game preserves edited coordinates. |
+| `musicVolume` | 0 | 7 | **Client-owned ✓** | Client preference. Audio setting preserved. |
+| `money` | 44659854 | 44659854 | Server-authoritative | Server reverts on sync. Codec cannot override. |
+| `moneyCash` | 2448018 | 2448018 | Server-authoritative | Server reverts on sync. |
+| `levelup` | 399 | 399 | Server-authoritative | Server reverts on sync. |
+| `experience` | 562209876 | 562209876 | Server-authoritative | Server reverts on sync. |
+
+**Method:** Edited plaintext XML (1,879,939 B, two same-length digit swaps) written to
+`/data/data/com.playrix.township/saves/mGameInfo.xml` via `su -c cp` with `chown u0_a54:u0_a54`,
+`chmod 660`. Township launched via `am start -n com.playrix.township/.Launcher`. Game loaded
+plaintext directly, re-encrypted to `0x79` (300,008 B). Re-decoded save confirmed both edits
+present and economy fields unchanged.
+
+**Key findings:**
+- Game performs **no format validation on read** — accepts plaintext XML at `mGameInfo.xml` transparently.
+- `.bak` file on device is **plaintext** (1,879,950 B) — game writes unencrypted backup before encrypting.
+- Building count stable (448→448). Var count +1 (2531→2532, game added one during session).
+- The 317-byte size decrease in re-decoded save is game-session state changes (timestamps, building reorder), not edit reversion.
+- Economy field immutability is a **server validation boundary**, not a codec limitation — the codec faithfully writes the value, but the server overwrites it on next sync.

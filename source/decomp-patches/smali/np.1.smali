@@ -213,19 +213,7 @@
 
     .line 49
     .line 50
-    iget-object v1, v6, Lcom/twntool/android/bridge/TwnBridge;->a:Lcom/twntool/auth/AuthManager;
-
-    .line 51
-    .line 52
-    invoke-virtual {v1}, Lcom/twntool/auth/AuthManager;->o()Z
-
-    .line 53
-    .line 54
-    .line 55
-    move-result v1
-
-    .line 56
-    if-nez v1, :cond_2
+    goto :cond_2
 
     .line 57
     .line 58

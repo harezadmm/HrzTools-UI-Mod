@@ -36,11 +36,11 @@ says they live.
 ### 0.1 CURRENT STATE
 
 ```
-ACTIVE TASK : (none — modified TwnTool installed and verified)
-NEXT TASK   : optional — isolate client-owned fields, or port the proven pattern to another game
-BLOCKED ON  : nothing (device reachable; MuMu 127.0.0.1:7555)
-LAST CP     : CP-024
-LEDGER SIZE : 24 checkpoints
+ACTIVE TASK : (none — CP-026 complete, field characterization ready to broaden)
+NEXT TASK   : test broader client-owned field set (Unlocked_ava*, Boost*, decorations, zoo layout) then port to other Playrix games
+BLOCKED ON  : nothing (AVD emulator-5566 reachable; frida-server PID 8604 running)
+LAST CP     : CP-026
+LEDGER SIZE : 26 checkpoints
 ```
 
 **Session 2 (device) results:** the ciphertext is captured in-process (300,008 B, header 0x79), the
@@ -1172,6 +1172,39 @@ Recommended path: prove with **(C)** in LC-3.3, ship with **(A)** unless zstd ma
 - Blockers:   Server-owned progress/economy values are outside the codec boundary.
 - Notes:      Diagnostic UI text was rebuilt, signed, and installed. APK SHA-256:
               `e77bdbe0adea23dbacce7468dd60e1ff17add4cc96d6e27a233caf5e866ef7f9`.
+
+### CP-026 | 2026-10-14 | LTX-quasar
+- Task:       verify edit persistence after write-back encode — do edits survive a full decode→edit→encode→launch→reload→decode roundtrip?
+- Status:     DONE — persistence CONFIRMED for layout and client-preference fields; server-authoritative fields unchanged
+- Did:        Decoded fresh device save (300,008 B → 1,879,939 B plaintext XML). Applied two same-length edits to different authority domains:
+              (1) Building position: parking `bid=21112013-152433-x896u` `i:23→i:28` (layout field).
+              (2) Client preference: `musicVolume v="0"→v="7"` (audio setting).
+              Write-back encode: pushed edited plaintext XML to `/data/data/com.playrix.township/saves/mGameInfo.xml` via `su -c cp`, `chown u0_a54:u0_a54`, `chmod 660`, launched Township via `am start -n com.playrix.township/.Launcher`, waited 30s, force-stopped, pulled re-encrypted save (300,008 B, 0x79 header), re-decoded.
+- Result:     BOTH edits persisted in re-decoded save (1,879,622 B):
+              `bid=21112013-152433-x896u` → `"i":28` ✓ (was 23)
+              `musicVolume` → `v="7"` ✓ (was 0)
+              Economy fields UNCHANGED (server-authoritative confirmed):
+              `money`=44659854 (same), `moneyCash`=2448018 (same), `levelup`=399 (same), `experience`=562209876 (same).
+              Building count stable: 448→448. Var count: 2531→2532 (+1, new session var).
+              The 317-byte size decrease and 66K diff regions are game-session state changes (timestamps, building reorder), not edit reversion.
+- Evidence:   `REBUILD/evidence/mGameInfo_device_20261014.bin` (original encrypted, 300,008 B);
+              `REBUILD/evidence/mGameInfo_decoded_20261014.xml` (original plaintext, 1,879,939 B);
+              `REBUILD/evidence/mGameInfo_edited_20261014.xml` (edited plaintext, 1,879,939 B);
+              `REBUILD/evidence/mGameInfo_afterreload_20261014.bin` (re-encrypted, 300,008 B);
+              `REBUILD/evidence/mGameInfo_afterdecode_20261014.xml` (re-decoded, 1,879,622 B);
+              `REBUILD/evidence/mGameInfo_bak_20261014.xml` (device .bak, plaintext, 1,879,950 B).
+- Confirmed field ownership table:
+              | Field | Before | After roundtrip | Ownership |
+              |---|---|---|---|
+              | Building `i` (x-pos) | 23 | 28 | Client-owned ✓ |
+              | `musicVolume` | 0 | 7 | Client-owned ✓ |
+              | `money` | 44659854 | 44659854 | Server-authoritative |
+              | `moneyCash` | 2448018 | 2448018 | Server-authoritative |
+              | `levelup` | 399 | 399 | Server-authoritative |
+              | `experience` | 562209876 | 562209876 | Server-authoritative |
+- Next:       Broaden field characterization (Unlocked_ava*, Boost*, decorations, zoo layout). Then port to Gardenscapes/Homescapes/Fishdom.
+- Blockers:   Economy fields (money, moneyCash, levelup, experience) are server-authoritative — codec cannot override. This is a server validation boundary, not a codec limitation.
+- Notes:      Game accepts plaintext XML at `mGameInfo.xml` directly — no format validation on read. Game re-encrypts to 0x79 on next save cycle. `.bak` file is also plaintext on device (1,879,950 B). Township launcher activity is `.Launcher` (not `.TownshipActivity`). Township UID is `u0_a54` on emulator-5566.
 
 ```
 
