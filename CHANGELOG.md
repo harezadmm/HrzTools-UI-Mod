@@ -1,5 +1,32 @@
 # Changelog
 
+## Regatta v23 — x86_64 verified artifact
+
+### Changed
+- Publishes `build/HrzTools_Regatta-v23-x86_64.apk` with the bounded Regatta parser path.
+- Parser avoids materializing the full 37k-task payload and returns an 8-task result.
+
+### Verified
+- APK install and app launch completed on Android x86_64 emulator.
+- Evidence log records `result_ok=true` and `result_meta={tarefas=8}`.
+- Package: `com.hrztool.android`.
+- SHA-256: `454e0bbdd894e38c6388617fe34a5404d32f655675bc8de16d57a361a0018679`.
+- ABI: x86_64 only; ARM64 physical-device support is not claimed for this artifact.
+
+
+## v16.1.0 — Android 64-bit dual-ABI release
+
+### Changed
+- Publishes latest v16 UI and local codec payload with both `arm64-v8a` and `x86_64` native libraries.
+- Targets physical ARM64 Android devices and x86_64 emulators. It does not claim support for 32-bit-only devices.
+
+### Verified
+- APK signature verified with APK Signature Scheme v2 and v3.
+- Package: `com.hrztool.android`, version code `24`, version name `1.75`.
+- x86_64 install smoke test completed on MuMu emulator.
+- SHA-256: `87c39ef3a279437c8dd909f80a2f676022c28bc24655a38a3fb6836e074d5c07`.
+
+
 ## [UI Overhaul] — 2026-07-10
 
 ### Changed — TOOLS feature-button grid (`ToolsScreenKt`)
